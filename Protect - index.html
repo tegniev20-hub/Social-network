@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+
+<title>Social Network</title>
+
+<style>
+:root {
+  --bg: #f7f7f8;
+  --card: #ffffff;
+  --text: #111111;
+  --muted: #737373;
+  --border: #e5e5e5;
+  --accent: #635bff;
+  --danger: #ff3040;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.topbar {
+  height: 64px;
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topbar-inner {
+  max-width: 1180px;
+  height: 100%;
+  margin: auto;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.8px;
+}
+
+.search {
+  width: 280px;
+  background: #f0f0f2;
+  border: 0;
+  outline: none;
+  padding: 11px 16px;
+  border-radius: 13px;
+}
+
+.top-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+}
+
+.icon-btn:hover {
+  background: #eeeeef;
+}
+
+.page {
+  max-width: 1180px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 220px 1fr 280px;
+  gap: 28px;
+  padding: 28px 18px 100px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 90px;
+  height: max-content;
+}
+
+.side-button {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 13px 14px;
+  border-radius: 12px;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.side-button:hover {
+  background: #eaeaec;
+}
+
+.side-button.active {
+  background: #eeeeef;
+  font-weight: 700;
+}
+
+.feed {
+  min-width: 0;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  margin-bottom: 18px;
+}
+
+.stories {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 18px;
+}
+
+.story {
+  min-width: 70px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.story-ring {
+  width: 64px;
+  height: 64px;
+  padding: 3px;
+  border-radius: 50%;
+  margin: auto auto 7px;
+  background: linear-gradient(135deg,#feda75,#d62976,#4f5bd5);
+}
+
+.story-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  border: 3px solid white;
+}
+
+.story:first-child .story-ring {
+  background: #e9e9eb;
+}
+
+.story:first-child .story-avatar {
+  background: white;
+  color: #111;
+  border-color: #e9e9eb;
+  font-size: 25px;
+}
+
+.create {
+  padding: 18px;
+}
+
+.create-top {
+  display: flex;
+  gap: 12px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#635bff,#9b8cff);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.create textarea {
+  width: 100%;
+  min-height: 70px;
+  resize: vertical;
+  border: 0;
+  outline: none;
+  padding: 10px 0;
+  background: transparent;
+}
+
+.create-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding-top: 13px;
+  margin-top: 8px;
+}
+
+.tools-left {
+  display: flex;
+  gap: 5px;
+}
+
+.tool {
+  border: 0;
+  background: transparent;
+  padding: 8px 10px;
+  border-radius: 9px;
+}
+
+.tool:hover {
+  background: #f0f0f2;
+}
+
+.publish {
+  border: 0;
+  background: var(--accent);
+  color: white;
+  border-radius: 10px;
+  padding: 9px 17px;
+  font-weight: 700;
+}
+
+input[type=file] {
+  display: none;
+}
+
+.preview {
+  margin-top: 12px;
+}
+
+.preview img,
+.preview video {
+  width: 100%;
+  max-height: 430px;
+  object-fit: contain;
+  border-radius: 14px;
+  background: #111;
+}
+
+.post {
+  overflow: hidden;
+}
+
+.post-head {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  gap: 11px;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.username {
+  font-weight: 700;
+}
+
+.time {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.more {
+  border: 0;
+  background: transparent;
+  font-size: 20px;
+}
+
+.post-content {
+  padding: 0 16px 12px;
+  line-height: 1.5;
+}
+
+.post-media {
+  width: 100%;
+  background: #111;
+}
+
+.post-media img,
+.post-media video {
+  display: block;
+  width: 100%;
+  max-height: 650px;
+  object-fit: contain;
+}
+
+.post-actions {
+  padding: 10px 16px 5px;
+  display: flex;
+  gap: 8px;
+}
+
+.post-action {
+  border: 0;
+  background: transparent;
+  font-size: 20px;
+  padding: 7px;
+  border-radius: 9px;
+}
+
+.post-action:hover {
+  background: #f1f1f2;
+}
+
+.like-count {
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.comments {
+  padding: 8px 16px 16px;
+}
+
+.comment {
+  margin-top: 7px;
+  font-size: 14px;
+}
+
+.comment strong {
+  margin-right: 5px;
+}
+
+.comment-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.comment-form input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px 11px;
+  outline: none;
+}
+
+.comment-form button {
+  border: 0;
+  background: var(--accent);
+  color: white;
+  border-radius: 10px;
+  padding: 9px 12px;
+}
+
+.right-card {
+  padding: 18px;
+}
+
+.right-title {
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 13px 0;
+}
+
+.person-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.person-name {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.person-handle {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.follow {
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.reels-card {
+  padding: 18px;
+}
+
+.reel-preview {
+  height: 260px;
+  border-radius: 14px;
+  background: linear-gradient(150deg,#161616,#42348f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 22px;
+  margin-top: 12px;
+}
+
+.bottom-nav {
+  display: none;
+}
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 30px;
+}
+
+@media(max-width: 950px) {
+  .page {
+    grid-template-columns: 190px 1fr;
+  }
+
+  .rightbar {
+    display: none;
+  }
+}
+
+@media(max-width: 700px) {
+  .topbar {
+    height: 58px;
+  }
+
+  .topbar-inner {
+    padding: 0 12px;
+  }
+
+  .brand {
+    font-size: 19px;
+  }
+
+  .search {
+    display: none;
+  }
+
+  .page {
+    display: block;
+    padding: 10px 0 80px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .card {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 62px;
+    background: rgba(255,255,255,.96);
+    backdrop-filter: blur(15px);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 100;
+  }
+
+  .bottom-nav button {
+    border: 0;
+    background: transparent;
+    font-size: 20px;
+  }
+
+  .bottom-nav span {
+    display: block;
+    font-size: 10px;
+    margin-top: 2px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="topbar-inner">
+
+    <div class="brand">
+      Social Network
+    </div>
+
+    <input
+      class="search"
+      id="search"
+      type="search"
+      placeholder="Поиск"
+      oninput="searchPosts()"
+    >
+
+    <div class="top-actions">
+
+      <button
+        class="icon-btn"
+        onclick="showNotifications()"
+        aria-label="Уведомления"
+      >
+        ♡
+      </button>
+
+      <button
+        class="icon-btn"
+        onclick="focusCreate()"
+        aria-label="Создать"
+      >
+        +
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<div class="page">
+
+  <aside class="sidebar">
+
+    <button class="side-button active" onclick="home()">
+      Главная
+    </button>
+
+    <button class="side-button" onclick="focusCreate()">
+      Создать
+    </button>
+
+    <button class="side-button" onclick="showSearch()">
+      Поиск
+    </button>
+
+    <button class="side-button" onclick="showMessages()">
+      Сообщения
+    </button>
+
+    <button class="side-button" onclick="showReels()">
+      Reels
+    </button>
+
+    <button class="side-button" onclick="showProfile()">
+      Профиль
+    </button>
+
+  </aside>
+
+
+  <main class="feed">
+
+    <section class="card stories">
+
+      <div class="story">
+
+        <div class="story-ring">
+          <div class="story-avatar">
+            +
+          </div>
+        </div>
+
+        Ваша история
+
+      </div>
+
+
+      <div class="story">
+
+        <div class="story-ring">
+          <div class="story-avatar">
+            A
+          </div>
+        </div>
+
+        Alex
+
+      </div>
+
+
+      <div class="story">
+
+        <div class="story-ring">
+          <div class="story-avatar">
+            N
+          </div>
+        </div>
+
+        Anna
+
+      </div>
+
+
+      <div class="story">
+
+        <div class="story-ring">
+          <div class="story-avatar">
+            M
+          </div>
+        </div>
+
+        Mike
+
+      </div>
+
+
+      <div class="story">
+
+        <div class="story-ring">
+          <div class="story-avatar">
+            S
+          </div>
+        </div>
+
+        Sofia
+
+      </div>
+
+    </section>
+
+
+    <section class="card create" id="create">
+
+      <div class="create-top">
+
+        <div class="avatar">
+          A
+        </div>
+
+        <textarea
+          id="postText"
+          placeholder="Что нового?"
+        ></textarea>
+
+      </div>
+
+
+      <div
+        id="preview"
+        class="preview"
+      ></div>
+
+
+      <div class="create-tools">
+
+        <div class="tools-left">
+
+          <label class="tool">
+            Фото
+            <input
+              type="file"
+              id="photoInput"
+              accept="image/*"
+            >
+          </label>
+
+          <label class="tool">
+            Видео
+            <input
+              type="file"
+              id="videoInput"
+              accept="video/*"
+            >
+          </label>
+
+        </div>
+
+        <button
+          class="publish"
+          onclick="publishPost()"
+        >
+          Опубликовать
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <section id="feed">
+
+
+      <article class="card post">
+
+        <div class="post-head">
+
+          <div class="avatar">
+            A
+          </div>
+
+          <div class="user-info">
+
+            <div class="username">
+              Aslidin
+            </div>
+
+            <div class="time">
+              Сейчас
+            </div>
+
+          </div>
+
+          <button class="more">
+            ···
+          </button>
+
+        </div>
+
+
+        <div class="post-content">
+          Добро пожаловать в новую версию Social Network.
+          Здесь мы будем строить свою собственную социальную сеть.
+        </div>
+
+
+        <div class="post-media">
+
+          <div class="reel-preview">
+            Social Network
+          </div>
+
+        </div>
+
+
+        <div class="post-actions">
+
+          <button
+            class="post-action"
+            onclick="likePost(this)"
+          >
+            ♡
+          </button>
+
+          <button
+            class="post-action"
+            onclick="focusComment(this)"
+          >
+            ○
+          </button>
+
+          <button
+            class="post-action"
+            onclick="sharePost()"
+          >
+            ↗
+          </button>
+
+        </div>
+
+
+        <div class="like-count">
+          Нравится: <span>0</span>
+        </div>
+
+
+        <div class="comments">
+
+          <div class="comment-form">
+
+            <input
+              type="text"
+              placeholder="Добавить комментарий..."
+            >
+
+            <button onclick="addComment(this)">
+              Отправить
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+    </section>
+
+  </main>
+
+
+  <aside class="rightbar">
+
+    <div class="card right-card">
+
+      <div class="right-title">
+        Рекомендации
+      </div>
+
+
+      <div class="person">
+
+        <div class="avatar">
+          A
+        </div>
+
+        <div class="person-info">
+
+          <div class="person-name">
+            Alex
+          </div>
+
+          <div class="person-handle">
+            @alex
+          </div>
+
+        </div>
+
+        <button class="follow">
+          Подписаться
+        </button>
+
+      </div>
+
+
+      <div class="person">
+
+        <div class="avatar">
+          N
+        </div>
+
+        <div class="person-info">
+
+          <div class="person-name">
+            Anna
+          </div>
+
+          <div class="person-handle">
+            @anna
+          </div>
+
+        </div>
+
+        <button class="follow">
+          Подписаться
+        </button>
+
+      </div>
+
+
+      <div class="person">
+
+        <div class="avatar">
+          M
+        </div>
+
+        <div class="person-info">
+
+          <div class="person-name">
+            Mike
+          </div>
+
+          <div class="person-handle">
+            @mike
+          </div>
+
+        </div>
+
+        <button class="follow">
+          Подписаться
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="card reels-card">
+
+      <div class="right-title">
+        Популярное
+      </div>
+
+      <div class="reel-preview">
+        Reels
+      </div>
+
+    </div>
+
+  </aside>
+
+</div>
+
+
+<nav class="bottom-nav">
+
+  <button onclick="home()">
+    Home
+    <span>Главная</span>
+  </button>
+
+  <button onclick="showSearch()">
+    Search
+    <span>Поиск</span>
+  </button>
+
+  <button onclick="focusCreate()">
+    +
+    <span>Создать</span>
+  </button>
+
+  <button onclick="showReels()">
+    Play
+    <span>Reels</span>
+  </button>
+
+  <button onclick="showProfile()">
+    User
+    <span>Профиль</span>
+  </button>
+
+</nav>
+
+
+<script>
+
+let selectedFile = null;
+let selectedType = null;
+
+
+const photoInput =
+  document.getElementById("photoInput");
+
+const videoInput =
+  document.getElementById("videoInput");
+
+
+photoInput.addEventListener(
+  "change",
+  function(event) {
+
+    const file =
+      event.target.files[0];
+
+    if (!file) return;
+
+    selectedFile = file;
+    selectedType = "image";
+
+    previewFile(file, "image");
+  }
+);
+
+
+videoInput.addEventListener(
+  "change",
+  function(event) {
+
+    const file =
+      event.target.files[0];
+
+    if (!file) return;
+
+    selectedFile = file;
+    selectedType = "video";
+
+    previewFile(file, "video");
+  }
+);
+
+
+function previewFile(file, type) {
+
+  const preview =
+    document.getElementById("preview");
+
+  const url =
+    URL.createObjectURL(file);
+
+  if (type === "image") {
+
+    preview.innerHTML =
+      `<img src="${url}" alt="Предпросмотр">`;
+
+  } else {
+
+    preview.innerHTML =
+      `<video src="${url}" controls></video>`;
+  }
+}
+
+
+function publishPost() {
+
+  const text =
+    document
+      .getElementById("postText")
+      .value
+      .trim();
+
+  if (!text && !selectedFile) {
+
+    alert(
+      "Добавьте текст, фото или видео."
+    );
+
+    return;
+  }
+
+
+  const post =
+    document.createElement("article");
+
+  post.className =
+    "card post";
+
+
+  let media = "";
+
+
+  if (selectedFile) {
+
+    const url =
+      URL.createObjectURL(selectedFile);
+
+
+    if (selectedType === "image") {
+
+      media =
+        `<div class="post-media">
+          <img
+            src="${url}"
+            alt="Публикация"
+          >
+        </div>`;
+
+    }
+
+
+    if (selectedType === "video") {
+
+      media =
+        `<div class="post-media">
+          <video
+            src="${url}"
+            controls
+            playsinline
+          ></video>
+        </div>`;
+
+    }
+
+  }
+
+
+  post.innerHTML = `
+
+    <div class="post-head">
+
+      <div class="avatar">
+        A
+      </div>
+
+      <div class="user-info">
+
+        <div class="username">
+          Aslidin
+        </div>
+
+        <div class="time">
+          Только что
+        </div>
+
+      </div>
+
+      <button class="more">
+        ···
+      </button>
+
+    </div>
+
+
+    ${
+      text
+      ? `<div class="post-content">
+          ${escapeHTML(text)}
+        </div>`
+      : ""
+    }
+
+
+    ${media}
+
+
+    <div class="post-actions">
+
+      <button
+        class="post-action"
+        onclick="likePost(this)"
+      >
+        ♡
+      </button>
+
+      <button
+        class="post-action"
+        onclick="focusComment(this)"
+      >
+        ○
+      </button>
+
+      <button
+        class="post-action"
+        onclick="sharePost()"
+      >
+        ↗
+      </button>
+
+    </div>
+
+
+    <div class="like-count">
+      Нравится: <span>0</span>
+    </div>
+
+
+    <div class="comments">
+
+      <div class="comment-form">
+
+        <input
+          type="text"
+          placeholder="Добавить комментарий..."
+        >
+
+        <button onclick="addComment(this)">
+          Отправить
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document
+    .getElementById("feed")
+    .prepend(post);
+
+
+  document
+    .getElementById("postText")
+    .value = "";
+
+
+  document
+    .getElementById("preview")
+    .innerHTML = "";
+
+
+  photoInput.value = "";
+  videoInput.value = "";
+
+  selectedFile = null;
+  selectedType = null;
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+function likePost(button) {
+
+  const count =
+    button
+      .closest(".post")
+      .querySelector(".like-count span");
+
+  let number =
+    Number(count.textContent);
+
+  number++;
+
+  count.textContent =
+    number;
+
+  button.textContent =
+    "♥";
+}
+
+
+function addComment(button) {
+
+  const form =
+    button.parentElement;
+
+  const input =
+    form.querySelector("input");
+
+  const text =
+    input.value.trim();
+
+  if (!text) return;
+
+
+  const comment =
+    document.createElement("div");
+
+  comment.className =
+    "comment";
+
+  comment.innerHTML =
+    `<strong>Aslidin</strong>
+     ${escapeHTML(text)}`;
+
+
+  form.before(comment);
+
+  input.value = "";
+}
+
+
+function focusComment(button) {
+
+  const post =
+    button.closest(".post");
+
+  const input =
+    post.querySelector(".comment-form input");
+
+  input.focus();
+}
+
+
+function sharePost() {
+
+  if (navigator.share) {
+
+    navigator.share({
+      title: "Social Network",
+      text: "Посмотри эту публикацию!"
+    });
+
+  } else {
+
+    alert(
+      "Поделиться можно через меню телефона."
+    );
+
+  }
+}
+
+
+function focusCreate() {
+
+  document
+    .getElementById("create")
+    .scrollIntoView({
+      behavior: "smooth"
+    });
+
+  document
+    .getElementById("postText")
+    .focus();
+}
+
+
+function showSearch() {
+
+  const search =
+    document.getElementById("search");
+
+  search.focus();
+}
+
+
+function searchPosts() {
+
+  const query =
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const posts =
+    document.querySelectorAll(".post");
+
+
+  posts.forEach(post => {
+
+    const text =
+      post.textContent.toLowerCase();
+
+    post.style.display =
+      !query || text.includes(query)
+      ? ""
+      : "none";
+
+  });
+}
+
+
+function showNotifications() {
+
+  alert(
+    "Уведомления появятся здесь."
+  );
+}
+
+
+function showMessages() {
+
+  alert(
+    "Чат добавим следующим большим обновлением."
+  );
+}
+
+
+function showReels() {
+
+  alert(
+    "Раздел Reels открыт. Загрузку Reels сделаем следующим этапом."
+  );
+}
+
+
+function showProfile() {
+
+  alert(
+    "Профиль пользователя."
+  );
+}
+
+
+function home() {
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+function escapeHTML(text) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    text;
+
+  return div.innerHTML;
+}
+
+</script>
+
+</body>
+</html>
