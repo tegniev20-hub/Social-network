@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>Social Network</title>
+
+<style>
+:root{
+  --bg:#f7f7f8;
+  --card:#fff;
+  --text:#111;
+  --muted:#737373;
+  --border:#e5e5e5;
+  --accent:#635bff;
+  --danger:#ed4956;
+  --green:#16a34a;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+button,input,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* HEADER */
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:64px;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+
+.header-inner{
+  max-width:1100px;
+  height:100%;
+  margin:auto;
+  padding:0 18px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:-.8px;
+}
+
+.search{
+  flex:1;
+  max-width:360px;
+  border:0;
+  background:#f0f0f2;
+  padding:11px 16px;
+  border-radius:13px;
+  outline:none;
+}
+
+.header-actions{
+  margin-left:auto;
+  display:flex;
+  gap:6px;
+}
+
+.icon{
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  font-size:20px;
+}
+
+.icon:hover{
+  background:#eeeeef;
+}
+
+/* LAYOUT */
+
+.layout{
+  max-width:1100px;
+  margin:auto;
+  padding:25px 18px 90px;
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:25px;
+}
+
+.sidebar{
+  position:sticky;
+  top:90px;
+  height:max-content;
+}
+
+.side{
+  width:100%;
+  border:0;
+  background:transparent;
+  text-align:left;
+  padding:13px 15px;
+  border-radius:12px;
+  margin-bottom:4px;
+}
+
+.side:hover,
+.side.active{
+  background:#eaeaec;
+  font-weight:700;
+}
+
+.content{
+  min-width:0;
+}
+
+/* CARDS */
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  margin-bottom:18px;
+}
+
+/* SEARCH PAGE */
+
+.page-title{
+  font-size:24px;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.search-box{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.search-box input{
+  flex:1;
+  min-width:0;
+  padding:13px 15px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  outline:none;
+}
+
+.search-box button{
+  border:0;
+  background:var(--accent);
+  color:#fff;
+  border-radius:12px;
+  padding:0 18px;
+}
+
+.person-card{
+  padding:16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.avatar{
+  width:52px;
+  height:52px;
+  flex:0 0 52px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-weight:800;
+  background:linear-gradient(135deg,#635bff,#a78bfa);
+}
+
+.person-info{
+  flex:1;
+  min-width:0;
+}
+
+.person-name{
+  font-weight:800;
+}
+
+.username{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:2px;
+}
+
+.follow-btn{
+  border:0;
+  border-radius:10px;
+  background:var(--accent);
+  color:#fff;
+  padding:9px 14px;
+  font-weight:700;
+}
+
+.follow-btn.following{
+  background:#eeeeef;
+  color:#111;
+}
+
+/* PROFILE */
+
+.profile{
+  padding:24px;
+}
+
+.profile-top{
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+
+.profile-avatar{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#635bff,#a78bfa);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:32px;
+  font-weight:800;
+}
+
+.profile-main{
+  flex:1;
+}
+
+.profile-name{
+  font-size:23px;
+  font-weight:800;
+}
+
+.profile-handle{
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.profile-bio{
+  margin-top:10px;
+  line-height:1.45;
+}
+
+.profile-stats{
+  display:flex;
+  gap:25px;
+  margin-top:16px;
+}
+
+.stat strong{
+  display:block;
+  font-size:18px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.profile-actions{
+  margin-top:20px;
+  display:flex;
+  gap:10px;
+}
+
+.primary-btn,
+.secondary-btn{
+  border:0;
+  border-radius:11px;
+  padding:11px 18px;
+  font-weight:700;
+}
+
+.primary-btn{
+  background:var(--accent);
+  color:#fff;
+}
+
+.secondary-btn{
+  background:#eeeeef;
+  color:#111;
+}
+
+/* CHAT */
+
+.chat{
+  height:calc(100vh - 130px);
+  min-height:500px;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.chat-header{
+  padding:15px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.chat-user{
+  font-weight:800;
+}
+
+.chat-status{
+  color:var(--green);
+  font-size:12px;
+}
+
+.messages{
+  flex:1;
+  overflow-y:auto;
+  padding:18px;
+}
+
+.message-row{
+  display:flex;
+  margin-bottom:10px;
+}
+
+.message-row.me{
+  justify-content:flex-end;
+}
+
+.bubble{
+  max-width:75%;
+  padding:10px 13px;
+  border-radius:16px;
+  background:#eeeeef;
+  line-height:1.4;
+}
+
+.me .bubble{
+  background:var(--accent);
+  color:white;
+}
+
+.chat-input{
+  border-top:1px solid var(--border);
+  padding:12px;
+  display:flex;
+  gap:8px;
+}
+
+.chat-input input{
+  flex:1;
+  min-width:0;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:11px 13px;
+  outline:none;
+}
+
+.chat-input button{
+  border:0;
+  border-radius:12px;
+  background:var(--accent);
+  color:#fff;
+  padding:0 16px;
+}
+
+/* REELS */
+
+.reels-container{
+  height:calc(100vh - 90px);
+  overflow-y:auto;
+  scroll-snap-type:y mandatory;
+  border-radius:18px;
+}
+
+.reel{
+  height:calc(100vh - 90px);
+  min-height:550px;
+  scroll-snap-align:start;
+  position:relative;
+  background:#111;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.reel video,
+.reel img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.reel-background{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:32px;
+  font-weight:800;
+  background:linear-gradient(145deg,#111827,#635bff,#ec4899);
+}
+
+.reel-overlay{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:25px 20px;
+  color:white;
+  background:linear-gradient(transparent,rgba(0,0,0,.75));
+}
+
+.reel-user{
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.reel-caption{
+  max-width:80%;
+  line-height:1.4;
+}
+
+.reel-actions{
+  position:absolute;
+  right:14px;
+  bottom:90px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.reel-action{
+  width:48px;
+  height:48px;
+  border:0;
+  border-radius:50%;
+  background:rgba(0,0,0,.45);
+  color:white;
+  font-size:20px;
+}
+
+.reel-action span{
+  display:block;
+  font-size:10px;
+  margin-top:2px;
+}
+
+/* MOBILE NAV */
+
+.bottom{
+  display:none;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:750px){
+
+  .header{
+    height:58px;
+  }
+
+  .header-inner{
+    padding:0 12px;
+  }
+
+  .logo{
+    font-size:19px;
+  }
+
+  .search{
+    display:none;
+  }
+
+  .layout{
+    display:block;
+    padding:10px 0 75px;
+  }
+
+  .sidebar{
+    display:none;
+  }
+
+  .card{
+    border-left:0;
+    border-right:0;
+    border-radius:0;
+  }
+
+  .profile{
+    padding:18px;
+  }
+
+  .profile-top{
+    align-items:flex-start;
+  }
+
+  .profile-avatar{
+    width:75px;
+    height:75px;
+    flex-basis:75px;
+    font-size:27px;
+  }
+
+  .profile-name{
+    font-size:19px;
+  }
+
+  .bottom{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:62px;
+    z-index:100;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(15px);
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+  }
+
+  .bottom button{
+    border:0;
+    background:transparent;
+    font-size:18px;
+  }
+
+  .bottom small{
+    display:block;
+    font-size:9px;
+    margin-top:2px;
+  }
+
+  .reels-container{
+    height:calc(100vh - 58px);
+    border-radius:0;
+  }
+
+  .reel{
+    height:calc(100vh - 58px);
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+  <div class="header-inner">
+
+    <div class="logo">
+      Social Network
+    </div>
+
+    <input
+      id="topSearch"
+      class="search"
+      placeholder="Поиск людей..."
+      oninput="liveSearch(this.value)"
+    >
+
+    <div class="header-actions">
+
+      <button
+        class="icon"
+        onclick="openPage('chat')"
+      >
+        ✉
+      </button>
+
+      <button
+        class="icon"
+        onclick="openPage('profile')"
+      >
+        A
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<div class="layout">
+
+  <aside class="sidebar">
+
+    <button
+      class="side active"
+      onclick="openPage('home')"
+    >
+      Главная
+    </button>
+
+    <button
+      class="side"
+      onclick="openPage('search')"
+    >
+      Поиск людей
+    </button>
+
+    <button
+      class="side"
+      onclick="openPage('reels')"
+    >
+      Reels
+    </button>
+
+    <button
+      class="side"
+      onclick="openPage('chat')"
+    >
+      Сообщения
+    </button>
+
+    <button
+      class="side"
+      onclick="openPage('profile')"
+    >
+      Мой профиль
+    </button>
+
+  </aside>
+
+
+  <main class="content">
+
+    <!-- HOME -->
+
+    <section id="homePage">
+
+      <div class="card profile">
+
+        <div class="profile-top">
+
+          <div class="profile-avatar">
+            A
+          </div>
+
+          <div class="profile-main">
+
+            <div class="profile-name">
+              Aslidin
+            </div>
+
+            <div class="profile-handle">
+              @aslidin
+            </div>
+
+            <div class="profile-stats">
+
+              <div class="stat">
+                <strong id="myFollowers">0</strong>
+                <span>подписчиков</span>
+              </div>
+
+              <div class="stat">
+                <strong>3</strong>
+                <span>подписки</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card profile">
+
+        <h2>Добро пожаловать</h2>
+
+        <p>
+          Найди новых людей, подпишись на них,
+          общайся и смотри Reels.
+        </p>
+
+        <div class="profile-actions">
+
+          <button
+            class="primary-btn"
+            onclick="openPage('search')"
+          >
+            Найти людей
+          </button>
+
+          <button
+            class="secondary-btn"
+            onclick="openPage('reels')"
+          >
+            Смотреть Reels
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section
+      id="searchPage"
+      class="hidden"
+    >
+
+      <div class="page-title">
+        Поиск людей
+      </div>
+
+      <div class="search-box">
+
+        <input
+          id="peopleSearch"
+          placeholder="Имя или @username"
+          oninput="searchPeople()"
+        >
+
+        <button onclick="searchPeople()">
+          Найти
+        </button>
+
+      </div>
+
+      <div id="peopleResults"></div>
+
+    </section>
+
+
+    <!-- PROFILE -->
+
+    <section
+      id="profilePage"
+      class="hidden"
+    >
+
+      <div class="card profile">
+
+        <div class="profile-top">
+
+          <div
+            id="profileAvatar"
+            class="profile-avatar"
+          >
+            A
+          </div>
+
+          <div class="profile-main">
+
+            <div
+              id="profileName"
+              class="profile-name"
+            >
+              Aslidin
+            </div>
+
+            <div
+              id="profileUsername"
+              class="profile-handle"
+            >
+              @aslidin
+            </div>
+
+            <div class="profile-stats">
+
+              <div class="stat">
+                <strong id="profileFollowers">0</strong>
+                <span>подписчиков</span>
+              </div>
+
+              <div class="stat">
+                <strong id="profileFollowing">3</strong>
+                <span>подписок</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          id="profileBio"
+          class="profile-bio"
+        >
+          Добро пожаловать в мой профиль Social Network.
+        </div>
+
+
+        <div class="profile-actions">
+
+          <button
+            id="profileFollowButton"
+            class="primary-btn"
+            onclick="toggleProfileFollow()"
+          >
+            Подписаться
+          </button>
+
+          <button
+            class="secondary-btn"
+            onclick="openChatWithCurrent()"
+          >
+            Написать
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CHAT -->
+
+    <section
+      id="chatPage"
+      class="hidden"
+    >
+
+      <div class="card chat">
+
+        <div class="chat-header">
+
+          <div class="avatar">
+            A
+          </div>
+
+          <div>
+
+            <div
+              id="chatName"
+              class="chat-user"
+            >
+              Alex
+            </div>
+
+            <div class="chat-status">
+              онлайн
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          id="messages"
+          class="messages"
+        >
+
+          <div class="message-row">
+
+            <div class="bubble">
+              Привет! Добро пожаловать в Social Network.
+            </div>
+
+          </div>
+
+
+          <div class="message-row me">
+
+            <div class="bubble">
+              Привет!
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="chat-input">
+
+          <input
+            id="messageInput"
+            placeholder="Написать сообщение..."
+            onkeydown="messageKey(event)"
+          >
+
+          <button onclick="sendMessage()">
+            Отправить
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- REELS -->
+
+    <section
+      id="reelsPage"
+      class="hidden"
+    >
+
+      <div class="reels-container">
+
+
+        <article class="reel">
+
+          <div class="reel-background">
+            SOCIAL
+          </div>
+
+          <div class="reel-overlay">
+
+            <div class="reel-user">
+              @alex
+            </div>
+
+            <div class="reel-caption">
+              Добро пожаловать в Social Network.
+            </div>
+
+          </div>
+
+          <div class="reel-actions">
+
+            <button
+              class="reel-action"
+              onclick="likeReel(this)"
+            >
+              ♡
+              <span>0</span>
+            </button>
+
+            <button
+              class="reel-action"
+              onclick="commentReel()"
+            >
+              ○
+              <span>Коммент.</span>
+            </button>
+
+            <button
+              class="reel-action"
+              onclick="shareReel()"
+            >
+              ↗
+              <span>Поделиться</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <article class="reel">
+
+          <div
+            class="reel-background"
+            style="background:linear-gradient(145deg,#111,#db2777,#7c3aed)"
+          >
+            REELS
+          </div>
+
+          <div class="reel-overlay">
+
+            <div class="reel-user">
+              @anna
+            </div>
+
+            <div class="reel-caption">
+              Новое видео уже здесь.
+            </div>
+
+          </div>
+
+          <div class="reel-actions">
+
+            <button
+              class="reel-action"
+              onclick="likeReel(this)"
+            >
+              ♡
+              <span>0</span>
+            </button>
+
+            <button
+              class="reel-action"
+              onclick="commentReel()"
+            >
+              ○
+              <span>Коммент.</span>
+            </button>
+
+            <button
+              class="reel-action"
+              onclick="shareReel()"
+            >
+              ↗
+              <span>Поделиться</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <article class="reel">
+
+          <div
+            class="reel-background"
+            style="background:linear-gradient(145deg,#0f172a,#0891b2,#22c55e)"
+          >
+            VIDEO
+          </div>
+
+          <div class="reel-overlay">
+
+            <div class="reel-user">
+              @mike
+            </div>
+
+            <div class="reel-caption">
+              Смотри следующий Reel свайпом вверх.
+            </div>
+
+          </div>
+
+          <div class="reel-actions">
+
+            <button
+              class="reel-action"
+              onclick="likeReel(this)"
+            >
+              ♡
+              <span>0</span>
+            </button>
+
+            <button
+              class="reel-action"
+              onclick="commentReel()"
+            >
+              ○
+              <span>Коммент.</span>
+            </button>
+
+            <button
+              class="reel-action"
+              onclick="shareReel()"
+            >
+              ↗
+              <span>Поделиться</span>
+            </button>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<nav class="bottom">
+
+  <button onclick="openPage('home')">
+    Home
+    <small>Главная</small>
+  </button>
+
+  <button onclick="openPage('search')">
+    Search
+    <small>Люди</small>
+  </button>
+
+  <button onclick="openPage('reels')">
+    Play
+    <small>Reels</small>
+  </button>
+
+  <button onclick="openPage('chat')">
+    Chat
+    <small>Чат</small>
+  </button>
+
+  <button onclick="openPage('profile')">
+    User
+    <small>Профиль</small>
+  </button>
+
+</nav>
+
+
+<script>
+
+/* ДАННЫЕ ПОЛЬЗОВАТЕЛЕЙ */
+
+const users = [
+
+  {
+    name:"Alex",
+    username:"@alex",
+    letter:"A",
+    followers:1280,
+    following:230,
+    bio:"Люблю путешествия, музыку и видео."
+  },
+
+  {
+    name:"Anna",
+    username:"@anna",
+    letter:"N",
+    followers:842,
+    following:190,
+    bio:"Фотографии, творчество и красивые моменты."
+  },
+
+  {
+    name:"Mike",
+    username:"@mike",
+    letter:"M",
+    followers:2310,
+    following:412,
+    bio:"Видео и новые идеи каждый день."
+  },
+
+  {
+    name:"Sofia",
+    username:"@sofia",
+    letter:"S",
+    followers:531,
+    following:180,
+    bio:"Добро пожаловать на мою страницу."
+  }
+
+];
+
+
+let currentUser = null;
+
+let followingUsers =
+  JSON.parse(
+    localStorage.getItem("followingUsers") || "[]"
+  );
+
+
+/* ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ */
+
+function openPage(page){
+
+  const pages = [
+    "homePage",
+    "searchPage",
+    "profilePage",
+    "chatPage",
+    "reelsPage"
+  ];
+
+  pages.forEach(id => {
+
+    document
+      .getElementById(id)
+      .classList.add("hidden");
+
+  });
+
+
+  if(page === "home")
+    document
+      .getElementById("homePage")
+      .classList.remove("hidden");
+
+
+  if(page === "search"){
+
+    document
+      .getElementById("searchPage")
+      .classList.remove("hidden");
+
+    searchPeople();
+  }
+
+
+  if(page === "profile"){
+
+    currentUser = {
+      name:"Aslidin",
+      username:"@aslidin",
+      letter:"A",
+      followers:Number(
+        localStorage.getItem("myFollowers") || 0
+      ),
+      following:3,
+      bio:"Добро пожаловать в мой Social Network."
+    };
+
+    showProfileData();
+  }
+
+
+  if(page === "chat"){
+
+    document
+      .getElementById("chatPage")
+      .classList.remove("hidden");
+
+  }
+
+
+  if(page === "reels"){
+
+    document
+      .getElementById("reelsPage")
+      .classList.remove("hidden");
+
+  }
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+/* ПОИСК */
+
+function searchPeople(){
+
+  const input =
+    document
+      .getElementById("peopleSearch")
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const results =
+    document
+      .getElementById("peopleResults");
+
+
+  const filtered =
+    users.filter(user =>
+
+      !input ||
+
+      user.name
+        .toLowerCase()
+        .includes(input) ||
+
+      user.username
+        .toLowerCase()
+        .includes(input)
+
+    );
+
+
+  if(!filtered.length){
+
+    results.innerHTML =
+      `<div class="empty">
+        Пользователь не найден.
+      </div>`;
+
+    return;
+  }
+
+
+  results.innerHTML =
+    filtered.map(user => `
+
+      <div class="card person-card">
+
+        <div
+          class="avatar"
+          onclick="openUser('${user.username}')"
+        >
+          ${user.letter}
+        </div>
+
+        <div
+          class="person-info"
+          onclick="openUser('${user.username}')"
+          style="cursor:pointer"
+        >
+
+          <div class="person-name">
+            ${user.name}
+          </div>
+
+          <div class="username">
+            ${user.username}
+          </div>
+
+        </div>
+
+        <button
+          class="follow-btn
+          ${isFollowing(user.username) ? "following" : ""}"
+          onclick="toggleFollow('${user.username}', this)"
+        >
+          ${isFollowing(user.username)
+            ? "Вы подписаны"
+            : "Подписаться"}
+        </button>
+
+      </div>
+
+    `).join("");
+}
+
+
+/* ОТКРЫТИЕ ПРОФИЛЯ */
+
+function openUser(username){
+
+  const user =
+    users.find(
+      item => item.username === username
+    );
+
+  if(!user) return;
+
+  currentUser = user;
+
+  showProfileData();
+
+}
+
+
+function showProfileData(){
+
+  openPageWithoutReset("profilePage");
+
+  document
+    .getElementById("profileAvatar")
+    .textContent =
+      currentUser.letter;
+
+  document
+    .getElementById("profileName")
+    .textContent =
+      currentUser.name;
+
+  document
+    .getElementById("profileUsername")
+    .textContent =
+      currentUser.username;
+
+  document
+    .getElementById("profileFollowers")
+    .textContent =
+      currentUser.followers;
+
+  document
+    .getElementById("profileFollowing")
+    .textContent =
+      currentUser.following;
+
+  document
+    .getElementById("profileBio")
+    .textContent =
+      currentUser.bio;
+
+
+  const button =
+    document.getElementById(
+      "profileFollowButton"
+    );
+
+
+  if(
+    currentUser.username === "@aslidin"
+  ){
+
+    button.textContent =
+      "Это ваш профиль";
+
+    button.disabled = true;
+
+    return;
+  }
+
+
+  button.disabled = false;
+
+  if(isFollowing(currentUser.username)){
+
+    button.textContent =
+      "Вы подписаны";
+
+    button.className =
+      "secondary-btn";
+
+  }else{
+
+    button.textContent =
+      "Подписаться";
+
+    button.className =
+      "primary-btn";
+
+  }
+
+}
+
+
+function openPageWithoutReset(id){
+
+  [
+    "homePage",
+    "searchPage",
+    "profilePage",
+    "chatPage",
+    "reelsPage"
+  ].forEach(page => {
+
+    document
+      .getElementById(page)
+      .classList.add("hidden");
+
+  });
+
+  document
+    .getElementById(id)
+    .classList.remove("hidden");
+}
+
+
+/* ПОДПИСКИ */
+
+function isFollowing(username){
+
+  return followingUsers.includes(username);
+
+}
+
+
+function toggleFollow(username, button){
+
+  if(isFollowing(username)){
+
+    followingUsers =
+      followingUsers.filter(
+        item => item !== username
+      );
+
+  }else{
+
+    followingUsers.push(username);
+
+  }
+
+
+  localStorage.setItem(
+    "followingUsers",
+    JSON.stringify(followingUsers)
+  );
+
+
+  searchPeople();
+
+}
+
+
+function toggleProfileFollow(){
+
+  if(!currentUser) return;
+
+  if(currentUser.username === "@aslidin")
+    return;
+
+
+  const username =
+    currentUser.username;
+
+
+  if(isFollowing(username)){
+
+    followingUsers =
+      followingUsers.filter(
+        item => item !== username
+      );
+
+  }else{
+
+    followingUsers.push(username);
+
+  }
+
+
+  localStorage.setItem(
+    "followingUsers",
+    JSON.stringify(followingUsers)
+  );
+
+
+  showProfileData();
+
+}
+
+
+/* ЧАТ */
+
+function openChatWithCurrent(){
+
+  if(!currentUser) return;
+
+  document
+    .getElementById("chatName")
+    .textContent =
+      currentUser.name;
+
+  openPage("chat");
+
+}
+
+
+function sendMessage(){
+
+  const input =
+    document.getElementById(
+      "messageInput"
+    );
+
+  const text =
+    input.value.trim();
+
+
+  if(!text) return;
+
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "message-row me";
+
+
+  const bubble =
+    document.createElement("div");
+
+  bubble.className =
+    "bubble";
+
+  bubble.textContent =
+    text;
+
+
+  row.appendChild(bubble);
+
+
+  document
+    .getElementById("messages")
+    .appendChild(row);
+
+
+  input.value = "";
+
+
+  const messages =
+    document.getElementById("messages");
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+
+function messageKey(event){
+
+  if(event.key === "Enter"){
+
+    event.preventDefault();
+
+    sendMessage();
+
+  }
+
+}
+
+
+/* REELS */
+
+function likeReel(button){
+
+  const counter =
+    button.querySelector("span");
+
+  let number =
+    Number(counter.textContent);
+
+  number++;
+
+  counter.textContent =
+    number;
+
+  button.style.color =
+    "#ff3040";
+
+}
+
+
+function commentReel(){
+
+  const comment =
+    prompt(
+      "Ваш комментарий:"
+    );
+
+  if(comment && comment.trim()){
+
+    alert(
+      "Комментарий добавлен."
+    );
+
+  }
+
+}
+
+
+function shareReel(){
+
+  if(navigator.share){
+
+    navigator.share({
+
+      title:"Social Network",
+
+      text:"Посмотри этот Reel!"
+
+    });
+
+  }else{
+
+    alert(
+      "Reel готов к отправке."
+    );
+
+  }
+
+}
+
+
+/* ПОИСК В ШАПКЕ */
+
+function liveSearch(value){
+
+  if(value.trim()){
+
+    openPage("search");
+
+    document
+      .getElementById("peopleSearch")
+      .value =
+        value;
+
+    searchPeople();
+
+  }
+
+}
+
+
+/* УВЕДОМЛЕНИЯ */
+
+function showNotifications(){
+
+  alert(
+    "Уведомления пока пусты."
+  );
+
+}
+
+
+</script>
+
+</body>
+</html>
