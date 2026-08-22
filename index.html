@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Social Network</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f3f5f8;
+      color: #111827;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: white;
+      border-bottom: 1px solid #ddd;
+      padding: 12px 18px;
+    }
+
+    .header {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .search {
+      flex: 1;
+      padding: 11px 15px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      outline: none;
+      background: #f5f6f8;
+    }
+
+    .profile-button {
+      border: none;
+      background: #111827;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 20px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 0 15px;
+      display: grid;
+      grid-template-columns: 220px 1fr 250px;
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .menu button {
+      width: 100%;
+      border: none;
+      background: transparent;
+      padding: 13px;
+      text-align: left;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .menu button:hover {
+      background: #f0f2f5;
+    }
+
+    .stories {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 5px;
+    }
+
+    .story {
+      min-width: 90px;
+      height: 120px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 10px;
+      font-weight: bold;
+    }
+
+    .story.add {
+      background: #e5e7eb;
+      color: #111827;
+      align-items: center;
+    }
+
+    .create-post textarea {
+      width: 100%;
+      min-height: 80px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 12px;
+      resize: vertical;
+      outline: none;
+    }
+
+    .post-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .post-actions button,
+    .publish {
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .publish {
+      background: #111827;
+      color: white;
+    }
+
+    .post {
+      margin-top: 15px;
+    }
+
+    .post-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #667eea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    .post-text {
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .post-image {
+      width: 100%;
+      height: 250px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .post-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .post-buttons button {
+      border: none;
+      background: #f1f3f5;
+      padding: 9px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .right-title {
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .friend {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .online {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #22c55e;
+      margin-left: auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+    }
+
+    @media (max-width: 850px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .left,
+      .right {
+        display: none;
+      }
+
+      .header {
+        gap: 8px;
+      }
+
+      .logo {
+        font-size: 19px;
+      }
+
+      .profile-button {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header">
+      <div class="logo">🌐 Social</div>
+
+      <input
+        class="search"
+        type="search"
+        placeholder="Поиск людей, видео и публикаций..."
+      >
+
+      <button class="profile-button" onclick="showProfile()">
+        Профиль
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ЛЕВОЕ МЕНЮ -->
+    <aside class="left">
+      <div class="card menu">
+        <button onclick="goHome()">🏠 Главная</button>
+        <button onclick="showMessage()">💬 Сообщения</button>
+        <button onclick="showFriends()">👥 Друзья</button>
+        <button onclick="showVideos()">🎬 Видео</button>
+        <button onclick="showReels()">▶️ Reels</button>
+        <button onclick="showNotifications()">🔔 Уведомления</button>
+        <button onclick="showProfile()">👤 Профиль</button>
+      </div>
+    </aside>
+
+    <!-- ЦЕНТР -->
+    <section>
+
+      <!-- ИСТОРИИ -->
+      <div class="card">
+        <div class="stories">
+
+          <div class="story add" onclick="addStory()">
+            ➕<br>
+            Добавить
+          </div>
+
+          <div class="story">
+            🔥<br>
+            История
+          </div>
+
+          <div class="story">
+            🎵<br>
+            Музыка
+          </div>
+
+          <div class="story">
+            📸<br>
+            Фото
+          </div>
+
+          <div class="story">
+            🎮<br>
+            Игры
+          </div>
+
+        </div>
+      </div>
+
+      <!-- СОЗДАНИЕ ПОСТА -->
+      <div class="card create-post">
+
+        <textarea
+          id="postText"
+          placeholder="Что у вас нового?"
+        ></textarea>
+
+        <div class="post-actions">
+          <button onclick="addPhoto()">📷 Фото</button>
+          <button onclick="addVideo()">🎬 Видео</button>
+          <button class="publish" onclick="publishPost()">
+            Опубликовать
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ПОСТ -->
+      <div class="card post">
+
+        <div class="post-user">
+          <div class="avatar">A</div>
+
+          <div>
+            <strong>Aslidin</strong><br>
+            <small>Только что</small>
+          </div>
+        </div>
+
+        <div class="post-text">
+          Добро пожаловать в Social Network! 🚀
+          Здесь можно общаться, смотреть видео,
+          публиковать фотографии и находить новых друзей.
+        </div>
+
+        <div class="post-image">
+          SOCIAL NETWORK
+        </div>
+
+        <div class="post-buttons">
+          <button onclick="likePost(this)">
+            ❤️ Нравится <span>0</span>
+          </button>
+
+          <button onclick="commentPost()">
+            💬 Комментировать
+          </button>
+
+          <button onclick="sharePost()">
+            ↗️ Поделиться
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ПРАВАЯ ПАНЕЛЬ -->
+    <aside class="right">
+
+      <div class="card">
+        <div class="right-title">
+          👥 Люди онлайн
+        </div>
+
+        <div class="friend">
+          <div class="avatar">A</div>
+          <span>Azam</span>
+          <div class="online"></div>
+        </div>
+
+        <div class="friend">
+          <div class="avatar">M</div>
+          <span>Malik</span>
+          <div class="online"></div>
+        </div>
+
+        <div class="friend">
+          <div class="avatar">S</div>
+          <span>Samir</span>
+          <div class="online"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="right-title">
+          🔥 Рекомендации
+        </div>
+
+        <p>Новые видео</p>
+        <br>
+        <p>Популярные Reels</p>
+        <br>
+        <p>Новые пользователи</p>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <footer>
+    © 2026 Social Network
+  </footer>
+
+
+  <script>
+
+    function publishPost() {
+      const text = document.getElementById("postText").value.trim();
+
+      if (text === "") {
+        alert("Напиши что-нибудь перед публикацией.");
+        return;
+      }
+
+      alert("Публикация создана! 🚀");
+
+      document.getElementById("postText").value = "";
+    }
+
+    function likePost(button) {
+      const counter = button.querySelector("span");
+      let number = Number(counter.textContent);
+
+      number++;
+
+      counter.textContent = number;
+    }
+
+    function commentPost() {
+      const comment = prompt("Напиши комментарий:");
+
+      if (comment && comment.trim() !== "") {
+        alert("Комментарий добавлен!");
+      }
+    }
+
+    function sharePost() {
+      alert("Публикация готова к отправке друзьям!");
+    }
+
+    function addStory() {
+      alert("Здесь скоро можно будет добавлять свои истории.");
+    }
+
+    function addPhoto() {
+      alert("Загрузка фотографий будет добавлена следующим обновлением.");
+    }
+
+    function addVideo() {
+      alert("Загрузка видео будет добавлена следующим обновлением.");
+    }
+
+    function showProfile() {
+      alert("Профиль пользователя");
+    }
+
+    function showMessage() {
+      alert("Раздел сообщений");
+    }
+
+    function showFriends() {
+      alert("Раздел друзей");
+    }
+
+    function showVideos() {
+      alert("Раздел видео");
+    }
+
+    function showReels() {
+      alert("Раздел Reels");
+    }
+
+    function showNotifications() {
+      alert("Уведомления");
+    }
+
+    function goHome() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+  </script>
+
+</body>
+</html>
