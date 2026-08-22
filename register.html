@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Регистрация — Social Network</title>
+
+<style>
+:root {
+  --bg: #f5f5f7;
+  --card: #ffffff;
+  --text: #111111;
+  --muted: #737373;
+  --border: #dedee3;
+  --accent: #635bff;
+  --accent-dark: #5148e5;
+  --error: #e5484d;
+  --success: #16803c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, #e8e5ff, transparent 35%),
+    var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px 15px;
+}
+
+.container {
+  width: 100%;
+  max-width: 460px;
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.brand-name {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.brand-text {
+  color: var(--muted);
+  margin-top: 7px;
+}
+
+.card {
+  background: rgba(255,255,255,.96);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 15px 50px rgba(0,0,0,.08);
+}
+
+h1 {
+  margin: 0 0 7px;
+  font-size: 25px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0 0 24px;
+  line-height: 1.4;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 14px;
+  font-size: 15px;
+  outline: none;
+  background: white;
+  transition: .2s;
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99,91,255,.12);
+}
+
+.password-wrap {
+  position: relative;
+}
+
+.password-wrap input {
+  padding-right: 48px;
+}
+
+.show-password {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--muted);
+}
+
+.strength {
+  height: 5px;
+  background: #e8e8eb;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.strength-bar {
+  width: 0;
+  height: 100%;
+  transition: .25s;
+}
+
+.strength-text {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.rules {
+  background: #f7f7f9;
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 8px;
+  margin-bottom: 17px;
+}
+
+.rule {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 5px 0;
+}
+
+.rule.valid {
+  color: var(--success);
+}
+
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 16px 0;
+}
+
+.checkbox input {
+  width: 17px;
+  height: 17px;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+
+.checkbox label {
+  margin: 0;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.checkbox a {
+  color: var(--accent);
+}
+
+.register {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 14px;
+  background: var(--accent);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.register:hover {
+  background: var(--accent-dark);
+}
+
+.register:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.message {
+  min-height: 20px;
+  text-align: center;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.error {
+  color: var(--error);
+}
+
+.success {
+  color: var(--success);
+}
+
+.login {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.login button {
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 18px;
+}
+
+@media (max-width: 500px) {
+  .card {
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .brand-name {
+    font-size: 27px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="brand">
+    <div class="brand-name">Social Network</div>
+    <div class="brand-text">
+      Создай свой аккаунт
+    </div>
+  </div>
+
+
+  <div class="card">
+
+    <h1>Регистрация</h1>
+
+    <p class="subtitle">
+      Заполни данные, чтобы создать профиль.
+    </p>
+
+
+    <form id="registerForm">
+
+
+      <div class="field">
+
+        <label for="name">
+          Имя
+        </label>
+
+        <input
+          id="name"
+          type="text"
+          placeholder="Например, Aslidin"
+          autocomplete="name"
+          required
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="username">
+          Имя пользователя
+        </label>
+
+        <input
+          id="username"
+          type="text"
+          placeholder="@username"
+          autocomplete="username"
+          maxlength="20"
+          required
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="email">
+          Email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="birth">
+          Дата рождения
+        </label>
+
+        <input
+          id="birth"
+          type="date"
+          autocomplete="bday"
+          required
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="password">
+          Пароль
+        </label>
+
+        <div class="password-wrap">
+
+          <input
+            id="password"
+            type="password"
+            placeholder="Создай пароль"
+            autocomplete="new-password"
+            required
+          >
+
+          <button
+            type="button"
+            class="show-password"
+            onclick="togglePassword('password', this)"
+          >
+            Показать
+          </button>
+
+        </div>
+
+
+        <div class="strength">
+          <div
+            id="strengthBar"
+            class="strength-bar"
+          ></div>
+        </div>
+
+        <div
+          id="strengthText"
+          class="strength-text"
+        >
+          Введите пароль
+        </div>
+
+      </div>
+
+
+      <div class="rules">
+
+        <div
+          id="ruleLength"
+          class="rule"
+        >
+          • Минимум 8 символов
+        </div>
+
+        <div
+          id="ruleLetter"
+          class="rule"
+        >
+          • Есть буква
+        </div>
+
+        <div
+          id="ruleNumber"
+          class="rule"
+        >
+          • Есть цифра
+        </div>
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="confirmPassword">
+          Подтверждение пароля
+        </label>
+
+        <div class="password-wrap">
+
+          <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Повтори пароль"
+            autocomplete="new-password"
+            required
+          >
+
+          <button
+            type="button"
+            class="show-password"
+            onclick="togglePassword('confirmPassword', this)"
+          >
+            Показать
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="checkbox">
+
+        <input
+          id="terms"
+          type="checkbox"
+          required
+        >
+
+        <label for="terms">
+          Я согласен с правилами использования
+          Social Network.
+        </label>
+
+      </div>
+
+
+      <button
+        id="registerButton"
+        class="register"
+        type="submit"
+      >
+        Создать аккаунт
+      </button>
+
+
+      <div
+        id="message"
+        class="message"
+      ></div>
+
+    </form>
+
+
+    <div class="login">
+
+      Уже есть аккаунт?
+
+      <button
+        type="button"
+        onclick="goToSite()"
+      >
+        Войти
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer">
+    Social Network · 2026
+  </div>
+
+</div>
+
+
+<script>
+
+const password =
+  document.getElementById("password");
+
+const confirmPassword =
+  document.getElementById("confirmPassword");
+
+const strengthBar =
+  document.getElementById("strengthBar");
+
+const strengthText =
+  document.getElementById("strengthText");
+
+
+password.addEventListener(
+  "input",
+  checkPassword
+);
+
+
+function checkPassword() {
+
+  const value =
+    password.value;
+
+  const length =
+    value.length >= 8;
+
+  const letter =
+    /[A-Za-zА-Яа-я]/.test(value);
+
+  const number =
+    /\d/.test(value);
+
+
+  setRule(
+    "ruleLength",
+    length
+  );
+
+  setRule(
+    "ruleLetter",
+    letter
+  );
+
+  setRule(
+    "ruleNumber",
+    number
+  );
+
+
+  let score = 0;
+
+  if (length) score++;
+
+  if (letter) score++;
+
+  if (number) score++;
+
+  if (/[!@#$%^&*]/.test(value)) {
+    score++;
+  }
+
+
+  if (!value) {
+
+    strengthBar.style.width = "0%";
+    strengthText.textContent =
+      "Введите пароль";
+
+  } else if (score <= 1) {
+
+    strengthBar.style.width = "25%";
+    strengthText.textContent =
+      "Слабый пароль";
+
+  } else if (score === 2) {
+
+    strengthBar.style.width = "55%";
+    strengthText.textContent =
+      "Средний пароль";
+
+  } else if (score === 3) {
+
+    strengthBar.style.width = "75%";
+    strengthText.textContent =
+      "Хороший пароль";
+
+  } else {
+
+    strengthBar.style.width = "100%";
+    strengthText.textContent =
+      "Сильный пароль";
+  }
+}
+
+
+function setRule(id, valid) {
+
+  const element =
+    document.getElementById(id);
+
+  element.classList.toggle(
+    "valid",
+    valid
+  );
+}
+
+
+function togglePassword(
+  inputId,
+  button
+) {
+
+  const input =
+    document.getElementById(inputId);
+
+  if (input.type === "password") {
+
+    input.type = "text";
+    button.textContent = "Скрыть";
+
+  } else {
+
+    input.type = "password";
+    button.textContent = "Показать";
+  }
+}
+
+
+document
+  .getElementById("registerForm")
+  .addEventListener(
+    "submit",
+    function(event) {
+
+      event.preventDefault();
+
+
+      const name =
+        document
+          .getElementById("name")
+          .value
+          .trim();
+
+      const username =
+        document
+          .getElementById("username")
+          .value
+          .trim();
+
+      const email =
+        document
+          .getElementById("email")
+          .value
+          .trim();
+
+      const birth =
+        document
+          .getElementById("birth")
+          .value;
+
+      const pass =
+        password.value;
+
+      const confirm =
+        confirmPassword.value;
+
+      const message =
+        document.getElementById("message");
+
+
+      if (pass.length < 8) {
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Пароль должен содержать минимум 8 символов.";
+
+        return;
+      }
+
+
+      if (!/[A-Za-zА-Яа-я]/.test(pass)) {
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Добавь хотя бы одну букву.";
+
+        return;
+      }
+
+
+      if (!/\d/.test(pass)) {
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Добавь хотя бы одну цифру.";
+
+        return;
+      }
+
+
+      if (pass !== confirm) {
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Пароли не совпадают.";
+
+        return;
+      }
+
+
+      if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Имя пользователя может содержать только буквы, цифры и _.";
+
+        return;
+      }
+
+
+      if (!birth) {
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Укажи дату рождения.";
+
+        return;
+      }
+
+
+      /*
+        ВАЖНО:
+
+        Сейчас это демонстрационная регистрация.
+        Настоящий аккаунт должен создаваться
+        на сервере с безопасным хранением пароля.
+      */
+
+
+      const button =
+        document.getElementById(
+          "registerButton"
+        );
+
+      button.disabled = true;
+
+      button.textContent =
+        "Создаём аккаунт...";
+
+
+      setTimeout(function() {
+
+        message.className =
+          "message success";
+
+        message.textContent =
+          "Аккаунт создан! Переходим в Social Network...";
+
+
+        setTimeout(function() {
+
+          window.location.href =
+            "new-index.html";
+
+        }, 1200);
+
+      }, 800);
+
+    }
+  );
+
+
+function goToSite() {
+
+  window.location.href =
+    "new-index.html";
+}
+
+</script>
+
+</body>
+</html>
