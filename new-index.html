@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Social Network</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f7;
+  color: #111;
+}
+
+header {
+  background: white;
+  padding: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  max-width: 650px;
+  margin: auto;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+main {
+  max-width: 650px;
+  margin: auto;
+  padding-bottom: 90px;
+}
+
+.stories {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  background: white;
+  padding: 16px;
+}
+
+.story {
+  text-align: center;
+  min-width: 70px;
+  font-size: 12px;
+}
+
+.circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #ec4899);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  margin: auto auto 5px;
+}
+
+.create {
+  background: white;
+  margin-top: 10px;
+  padding: 16px;
+}
+
+.create textarea {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 15px;
+  outline: none;
+}
+
+.media-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.media-buttons label,
+.publish {
+  flex: 1;
+  border: 0;
+  border-radius: 12px;
+  padding: 13px;
+  text-align: center;
+  cursor: pointer;
+  background: #f0f0f2;
+  font-size: 14px;
+}
+
+.publish {
+  background: #111;
+  color: white;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.preview {
+  margin-top: 12px;
+}
+
+.preview img,
+.preview video {
+  width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+  border-radius: 14px;
+  background: #111;
+}
+
+.post {
+  background: white;
+  margin-top: 10px;
+  padding: 16px;
+}
+
+.user {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.post-media img,
+.post-media video {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 14px;
+  background: #111;
+}
+
+.post-text {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 12px 0;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.actions button {
+  border: 0;
+  background: #f1f1f3;
+  border-radius: 10px;
+  padding: 9px 12px;
+  cursor: pointer;
+}
+
+.comments {
+  margin-top: 12px;
+}
+
+.comment {
+  background: #f3f3f5;
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin-top: 6px;
+}
+
+.comment-box {
+  display: flex;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.comment-box input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.comment-box button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px;
+  background: #111;
+  color: white;
+}
+
+nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  z-index: 30;
+}
+
+nav button {
+  border: 0;
+  background: none;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.empty {
+  text-align: center;
+  color: #777;
+  padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🌐 Social Network</div>
+</header>
+
+<main>
+
+<section class="stories">
+
+  <div class="story">
+    <div class="circle">+</div>
+    Моя история
+  </div>
+
+  <div class="story">
+    <div class="circle">👤</div>
+    Alex
+  </div>
+
+  <div class="story">
+    <div class="circle">👩</div>
+    Anna
+  </div>
+
+  <div class="story">
+    <div class="circle">😎</div>
+    Mike
+  </div>
+
+</section>
+
+
+<!-- СОЗДАНИЕ ПОСТА -->
+
+<section class="create">
+
+  <textarea
+    id="postText"
+    placeholder="Что нового?"
+  ></textarea>
+
+  <div class="media-buttons">
+
+    <label>
+      📸 Фото
+      <input
+        type="file"
+        id="photoInput"
+        accept="image/*"
+      >
+    </label>
+
+    <label>
+      🎥 Видео
+      <input
+        type="file"
+        id="videoInput"
+        accept="video/*"
+      >
+    </label>
+
+    <button
+      class="publish"
+      onclick="publishPost()"
+    >
+      📤 Опубликовать
+    </button>
+
+  </div>
+
+  <div
+    id="preview"
+    class="preview"
+  ></div>
+
+</section>
+
+
+<!-- ЛЕНТА -->
+
+<section id="feed">
+
+  <div class="post">
+
+    <div class="user">
+      👤 Alex
+    </div>
+
+    <div class="post-text">
+      Добро пожаловать в Social Network! 🚀
+    </div>
+
+    <div class="post-media">
+      <div style="
+        height:250px;
+        border-radius:14px;
+        background:linear-gradient(135deg,#6366f1,#ec4899);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:white;
+        font-size:30px;
+      ">
+        SOCIAL NETWORK
+      </div>
+    </div>
+
+    <div class="actions">
+
+      <button onclick="likePost(this)">
+        ❤️ <span>0</span>
+      </button>
+
+      <button onclick="focusComment(this)">
+        💬 Комментарий
+      </button>
+
+      <button onclick="sharePost()">
+        ↗️ Поделиться
+      </button>
+
+    </div>
+
+    <div class="comments">
+
+      <div class="comment-box">
+        <input
+          type="text"
+          placeholder="Написать комментарий..."
+        >
+
+        <button onclick="addComment(this)">
+          Отправить
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<nav>
+
+  <button onclick="scrollTopPage()">
+    🏠<br>
+    Главная
+  </button>
+
+  <button onclick="focusSearch()">
+    🔍<br>
+    Поиск
+  </button>
+
+  <button onclick="focusCreate()">
+    ➕<br>
+    Создать
+  </button>
+
+  <button onclick="showReels()">
+    🎬<br>
+    Reels
+  </button>
+
+  <button onclick="showProfile()">
+    👤<br>
+    Профиль
+  </button>
+
+</nav>
+
+
+<script>
+
+let selectedFile = null;
+let selectedType = null;
+
+
+/* ФОТО */
+
+document.getElementById("photoInput").addEventListener(
+  "change",
+  function(event) {
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    selectedFile = file;
+    selectedType = "image";
+
+    showPreview(file, "image");
+  }
+);
+
+
+/* ВИДЕО */
+
+document.getElementById("videoInput").addEventListener(
+  "change",
+  function(event) {
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    selectedFile = file;
+    selectedType = "video";
+
+    showPreview(file, "video");
+  }
+);
+
+
+/* ПРЕДПРОСМОТР */
+
+function showPreview(file, type) {
+
+  const preview = document.getElementById("preview");
+
+  const url = URL.createObjectURL(file);
+
+  if (type === "image") {
+
+    preview.innerHTML = `
+      <img src="${url}" alt="Предпросмотр">
+    `;
+
+  } else {
+
+    preview.innerHTML = `
+      <video src="${url}" controls></video>
+    `;
+  }
+}
+
+
+/* ПУБЛИКАЦИЯ */
+
+function publishPost() {
+
+  const text =
+    document.getElementById("postText").value.trim();
+
+  if (!text && !selectedFile) {
+
+    alert("Добавь текст, фото или видео.");
+
+    return;
+  }
+
+  const feed =
+    document.getElementById("feed");
+
+  const post =
+    document.createElement("div");
+
+  post.className = "post";
+
+  let mediaHTML = "";
+
+  if (selectedFile) {
+
+    const url =
+      URL.createObjectURL(selectedFile);
+
+    if (selectedType === "image") {
+
+      mediaHTML = `
+        <div class="post-media">
+          <img
+            src="${url}"
+            alt="Фото публикации"
+          >
+        </div>
+      `;
+
+    }
+
+    if (selectedType === "video") {
+
+      mediaHTML = `
+        <div class="post-media">
+          <video
+            src="${url}"
+            controls
+          ></video>
+        </div>
+      `;
+    }
+  }
+
+  post.innerHTML = `
+
+    <div class="user">
+      👤 Aslidin
+    </div>
+
+    ${
+      text
+      ? `<div class="post-text">${escapeHTML(text)}</div>`
+      : ""
+    }
+
+    ${mediaHTML}
+
+    <div class="actions">
+
+      <button onclick="likePost(this)">
+        ❤️ <span>0</span>
+      </button>
+
+      <button onclick="focusComment(this)">
+        💬 Комментарий
+      </button>
+
+      <button onclick="sharePost()">
+        ↗️ Поделиться
+      </button>
+
+    </div>
+
+    <div class="comments">
+
+      <div class="comment-box">
+
+        <input
+          type="text"
+          placeholder="Написать комментарий..."
+        >
+
+        <button onclick="addComment(this)">
+          Отправить
+        </button>
+
+      </div>
+
+    </div>
+  `;
+
+  feed.prepend(post);
+
+  document.getElementById("postText").value = "";
+
+  document.getElementById("preview").innerHTML = "";
+
+  document.getElementById("photoInput").value = "";
+
+  document.getElementById("videoInput").value = "";
+
+  selectedFile = null;
+
+  selectedType = null;
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+/* ЛАЙК */
+
+function likePost(button) {
+
+  const number =
+    button.querySelector("span");
+
+  let likes =
+    Number(number.textContent);
+
+  likes++;
+
+  number.textContent = likes;
+}
+
+
+/* КОММЕНТАРИЙ */
+
+function addComment(button) {
+
+  const box =
+    button.parentElement;
+
+  const input =
+    box.querySelector("input");
+
+  const text =
+    input.value.trim();
+
+  if (!text) return;
+
+  const comment =
+    document.createElement("div");
+
+  comment.className = "comment";
+
+  comment.textContent =
+    "👤 Aslidin: " + text;
+
+  box.parentElement.prepend(comment);
+
+  input.value = "";
+}
+
+
+/* ПРОКРУТКА К СОЗДАНИЮ */
+
+function focusCreate() {
+
+  document.querySelector(".create")
+    .scrollIntoView({
+      behavior: "smooth"
+    });
+}
+
+
+/* ФОКУС КОММЕНТАРИЯ */
+
+function focusComment(button) {
+
+  const post =
+    button.closest(".post");
+
+  const input =
+    post.querySelector(".comment-box input");
+
+  if (input) {
+
+    input.focus();
+  }
+}
+
+
+/* ПОДЕЛИТЬСЯ */
+
+function sharePost() {
+
+  if (navigator.share) {
+
+    navigator.share({
+      title: "Social Network",
+      text: "Посмотри эту публикацию!"
+    });
+
+  } else {
+
+    alert(
+      "Ссылка на публикацию готова для отправки."
+    );
+  }
+}
+
+
+/* ГЛАВНАЯ */
+
+function scrollTopPage() {
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+/* ПОИСК */
+
+function focusSearch() {
+
+  alert(
+    "Поиск пользователей и публикаций добавим следующим обновлением."
+  );
+}
+
+
+/* REELS */
+
+function showReels() {
+
+  alert(
+    "Раздел Reels уже есть. Настоящую загрузку Reels добавим следующим этапом."
+  );
+}
+
+
+/* ПРОФИЛЬ */
+
+function showProfile() {
+
+  alert(
+    "Профиль пользователя добавим следующим этапом."
+  );
+}
+
+
+/* ЗАЩИТА ТЕКСТА */
+
+function escapeHTML(text) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
+}
+
+</script>
+
+</body>
+</html>
