@@ -1,0 +1,2 @@
+const SUPABASE_URL = "ТВОЙ_API_URL";
+const SUPABASE_KEY = "ТВОЙ_PUBLISHABLE_KEY";
