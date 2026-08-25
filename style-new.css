@@ -558,3 +558,282 @@ button{
     height:380px;
   }
 }
+/* ===== SOCIAL NETWORK — NEW MOBILE DESIGN ===== */
+
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  padding-bottom: 90px;
+}
+
+/* Верхняя панель */
+.topbar {
+  height: 64px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #080b10;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 30px;
+}
+
+/* Лента */
+.feed {
+  width: 100%;
+  max-width: 650px;
+  margin: auto;
+}
+
+/* Истории */
+.stories {
+  display: flex;
+  gap: 14px;
+  padding: 15px 12px 18px;
+  overflow-x: auto;
+  background: #080b10;
+  scrollbar-width: none;
+}
+
+.stories::-webkit-scrollbar {
+  display: none;
+}
+
+.story {
+  min-width: 76px;
+  text-align: center;
+}
+
+.story-avatar {
+  width: 72px;
+  height: 72px;
+  margin: auto;
+  padding: 3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#ffcc00,#ff006e,#8b00ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 27px;
+}
+
+.story-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #080b10;
+}
+
+.my-story {
+  position: relative;
+  background: #222;
+}
+
+.my-story span {
+  position: absolute;
+  right: -2px;
+  bottom: -1px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: white;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.story p {
+  margin: 7px 0 0;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Пост */
+.post {
+  background: #000;
+  margin-bottom: 12px;
+}
+
+.post-header {
+  min-height: 62px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-avatar {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post-user {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-user strong {
+  font-size: 14px;
+}
+
+.post-user span {
+  color: #aaa;
+  font-size: 12px;
+}
+
+.follow {
+  padding: 8px 13px;
+  border: 1px solid #777;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  font-weight: 600;
+}
+
+.more {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 20px;
+}
+
+/* Большая фотография */
+.post-media {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #111;
+}
+
+.post-media img,
+.post-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Кнопки под публикацией */
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  padding: 10px 14px 5px;
+}
+
+.post-actions button {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 27px;
+}
+
+.post-actions .save {
+  margin-left: auto;
+}
+
+.post-info {
+  padding: 3px 14px 14px;
+}
+
+.post-info strong {
+  font-size: 13px;
+}
+
+.post-info p {
+  margin: 7px 0 0;
+  font-size: 14px;
+}
+
+/* Нижнее меню */
+.bottom-nav {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  height: 66px;
+  border-radius: 24px;
+  background: rgba(18,18,20,.96);
+  border: 1px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+  backdrop-filter: blur(18px);
+}
+
+.nav-item {
+  min-width: 55px;
+  border: 0;
+  background: transparent;
+  color: #aaa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 25px;
+}
+
+.nav-item small {
+  font-size: 9px;
+}
+
+.nav-item.active {
+  color: #fff;
+}
+
+/* Телефон */
+@media (max-width: 600px) {
+
+  .topbar {
+    height: 58px;
+  }
+
+  .logo {
+    font-size: 23px;
+  }
+
+  .stories {
+    padding-top: 13px;
+  }
+
+  .story-avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .post-media {
+    aspect-ratio: 4 / 5;
+  }
+
+  .bottom-nav {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+  }
+}
