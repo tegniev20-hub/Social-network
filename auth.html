@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Social Network — Вход</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .auth-page {
+      width: 100%;
+      max-width: 430px;
+    }
+
+    .auth-card {
+      padding: 30px 24px;
+      border-radius: 30px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      box-shadow: 0 25px 80px rgba(0,0,0,.4);
+    }
+
+    .auth-logo {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg,#fff,#8b7cff,#45e6f4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .auth-subtitle {
+      text-align: center;
+      color: #a9aec2;
+      margin-bottom: 28px;
+      font-size: 14px;
+    }
+
+    .auth-form {
+      display: none;
+    }
+
+    .auth-form.active {
+      display: block;
+    }
+
+    .auth-form h2 {
+      margin-bottom: 18px;
+      font-size: 22px;
+    }
+
+    .auth-field {
+      margin-bottom: 12px;
+    }
+
+    .auth-field input {
+      width: 100%;
+      height: 50px;
+      padding: 0 15px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,.12);
+      outline: none;
+      background: rgba(255,255,255,.07);
+      color: white;
+      font-size: 14px;
+    }
+
+    .auth-field input:focus {
+      border-color: rgba(108,99,255,.8);
+      box-shadow: 0 0 0 3px rgba(108,99,255,.12);
+    }
+
+    .auth-field input::placeholder {
+      color: #858ba1;
+    }
+
+    .auth-button {
+      width: 100%;
+      height: 50px;
+      margin-top: 8px;
+      border-radius: 15px;
+      color: white;
+      font-weight: 700;
+      background: linear-gradient(135deg,#6c63ff,#ec4899);
+      box-shadow: 0 10px 30px rgba(108,99,255,.25);
+    }
+
+    .auth-switch {
+      text-align: center;
+      margin-top: 20px;
+      color: #9da3b8;
+      font-size: 14px;
+    }
+
+    .auth-switch button {
+      background: none;
+      color: #8b7cff;
+      font-weight: 700;
+    }
+
+    .auth-message {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 13px;
+      background: rgba(255,255,255,.07);
+      color: #fff;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .auth-message.show {
+      display: block;
+    }
+
+    .password-note {
+      color: #777d94;
+      font-size: 11px;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="auth-page">
+
+    <div class="auth-card">
+
+      <div class="auth-logo">
+        Social Network
+      </div>
+
+      <div class="auth-subtitle">
+        Общайся. Публикуй. Находи новых людей.
+      </div>
+
+
+      <!-- ВХОД -->
+
+      <form id="loginForm" class="auth-form active">
+
+        <h2>Войти</h2>
+
+        <div class="auth-field">
+          <input
+            id="loginEmail"
+            type="email"
+            placeholder="Email"
+            autocomplete="email"
+            required
+          >
+        </div>
+
+        <div class="auth-field">
+          <input
+            id="loginPassword"
+            type="password"
+            placeholder="Пароль"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <button class="auth-button" type="submit">
+          Войти
+        </button>
+
+        <div class="auth-switch">
+          Нет аккаунта?
+          <button type="button" id="showRegister">
+            Зарегистрироваться
+          </button>
+        </div>
+
+      </form>
+
+
+      <!-- РЕГИСТРАЦИЯ -->
+
+      <form id="registerForm" class="auth-form">
+
+        <h2>Создать аккаунт</h2>
+
+        <div class="auth-field">
+          <input
+            id="registerName"
+            type="text"
+            placeholder="Имя"
+            autocomplete="given-name"
+            required
+          >
+        </div>
+
+        <div class="auth-field">
+          <input
+            id="registerUsername"
+            type="text"
+            placeholder="Имя пользователя"
+            autocomplete="username"
+            minlength="3"
+            maxlength="30"
+            required
+          >
+        </div>
+
+        <div class="auth-field">
+          <input
+            id="registerEmail"
+            type="email"
+            placeholder="Email"
+            autocomplete="email"
+            required
+          >
+        </div>
+
+        <div class="auth-field">
+          <input
+            id="registerPassword"
+            type="password"
+            placeholder="Пароль"
+            autocomplete="new-password"
+            minlength="6"
+            required
+          >
+
+          <div class="password-note">
+            Минимум 6 символов
+          </div>
+        </div>
+
+        <button class="auth-button" type="submit">
+          Зарегистрироваться
+        </button>
+
+        <div class="auth-switch">
+          Уже есть аккаунт?
+          <button type="button" id="showLogin">
+            Войти
+          </button>
+        </div>
+
+      </form>
+
+
+      <div id="authMessage" class="auth-message"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Supabase -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Наш auth.js -->
+
+  <script src="auth.js"></script>
+
+</body>
+</html>
