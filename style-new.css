@@ -835,5 +835,28 @@ body {
     left: 8px;
     right: 8px;
     bottom: 8px;
-  }
+
+  html,
+body,
+main,
+.feed,
+.post,
+.stories {
+  background: #fff !important;
 }
+
+body {
+  color: #111 !important;
+}
+  html,
+body,
+main,
+.feed,
+.post,
+.stories {
+  background: #fff !important;
+}
+
+body {
+  color: #111 !important;
+}  
