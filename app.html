@@ -2,713 +2,1375 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#0b0b0f">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#080914">
 <title>Social Network</title>
+
 <style>
-*{box-sizing:border-box}
-html,body{
-  margin:0;
-  min-height:100%;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#08090d;
-  color:#fff;
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-  overflow-x:hidden;
+  margin:0;
+  min-height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  color:#fff;
+  background:
+    radial-gradient(circle at 15% 5%,rgba(99,102,241,.28),transparent 30%),
+    radial-gradient(circle at 90% 30%,rgba(236,72,153,.18),transparent 28%),
+    radial-gradient(circle at 50% 100%,rgba(14,165,233,.14),transparent 35%),
+    #080914;
 }
-button,input{
+
+button,
+input,
+textarea{
   font:inherit;
 }
+
 button{
-  border:0;
   cursor:pointer;
-  color:inherit;
 }
-.glass{
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.13);
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
+
+.hidden{
+  display:none!important;
 }
-/* BACKGROUND */
-.bg{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  background:
-    radial-gradient(circle at 15% 10%,rgba(124,58,237,.28),transparent 28%),
-    radial-gradient(circle at 90% 30%,rgba(236,72,153,.18),transparent 30%),
-    radial-gradient(circle at 50% 100%,rgba(59,130,246,.16),transparent 30%),
-    #08090d;
-}
-/* HEADER */
-header{
+
+/* ===== HEADER ===== */
+
+.header{
   position:sticky;
   top:0;
-  z-index:50;
-  height:64px;
-  padding:0 15px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  background:rgba(8,9,13,.72);
-  border-bottom:1px solid rgba(255,255,255,.1);
+  z-index:100;
+  padding:12px 14px;
+  background:rgba(8,9,20,.72);
   backdrop-filter:blur(24px);
   -webkit-backdrop-filter:blur(24px);
 }
-.logo{
-  font-size:22px;
-  font-weight:850;
-  letter-spacing:-.8px;
-}
-.header-actions{
-  display:flex;
-  gap:8px;
-}
-.circle{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:rgba(255,255,255,.09);
-  border:1px solid rgba(255,255,255,.12);
-  display:grid;
-  place-items:center;
-  font-size:19px;
-}
-/* PAGES */
-.page{
-  display:none;
-  width:100%;
-  max-width:650px;
+
+.header-inner{
+  max-width:680px;
+  height:64px;
   margin:auto;
-  padding:14px 12px 100px;
+  padding:0 16px;
+  display:flex;
+  align-items:center;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:24px;
+  background:linear-gradient(
+    135deg,
+    rgba(99,102,241,.20),
+    rgba(14,165,233,.10)
+  );
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.08);
 }
-.page.active{
+
+.logo{
+  font-size:25px;
+  font-weight:850;
+  letter-spacing:-1px;
+  background:linear-gradient(90deg,#fff,#a5b4fc,#67e8f9);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.header-buttons{
+  margin-left:auto;
+  display:flex;
+  gap:10px;
+}
+
+.header-btn{
+  width:44px;
+  height:44px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:50%;
+  background:rgba(255,255,255,.07);
+  color:#fff;
+  font-size:20px;
+  backdrop-filter:blur(15px);
+}
+
+/* ===== MAIN ===== */
+
+.main{
+  width:100%;
+  max-width:680px;
+  margin:auto;
+  padding:8px 12px 105px;
+}
+
+.section{
   display:block;
 }
-.title{
-  font-size:28px;
-  font-weight:850;
-  margin:8px 2px 18px;
+
+.section.hidden{
+  display:none;
 }
-/* STORIES */
+
+/* ===== STORIES ===== */
+
 .stories{
   display:flex;
-  gap:14px;
+  gap:19px;
   overflow-x:auto;
-  padding:10px 2px 17px;
+  padding:16px 7px 20px;
   scrollbar-width:none;
 }
+
 .stories::-webkit-scrollbar{
   display:none;
 }
+
 .story{
-  min-width:68px;
+  flex:0 0 76px;
+  width:76px;
   text-align:center;
-  font-size:11px;
-  color:#bbb;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  padding:0!important;
 }
+
 .story-avatar{
-  width:64px;
-  height:64px;
-  margin:auto auto 6px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  font-size:22px;
-  background:linear-gradient(135deg,#7c3aed,#ec4899);
-  border:3px solid #111;
-  outline:2px solid rgba(236,72,153,.8);
-}
-.add{
-  background:rgba(255,255,255,.1);
-  outline:2px solid rgba(255,255,255,.3);
-}
-/* CREATE */
-.create{
-  margin-top:8px;
-  padding:14px;
-  border-radius:22px;
-}
-.create-row{
+  width:70px;
+  height:70px;
+  margin:0 auto 8px;
+  border-radius:50%!important;
+
   display:flex;
   align-items:center;
-  gap:10px;
-}
-.create-avatar{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#7c3aed,#ec4899);
-}
-.create-input{
-  flex:1;
-  background:rgba(255,255,255,.08);
+  justify-content:center;
+
   color:#fff;
-  border:1px solid rgba(255,255,255,.08);
-  outline:none;
-  border-radius:18px;
-  padding:12px 14px;
+  font-size:22px;
+  font-weight:800;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #a855f7,
+      #ec4899
+    );
+
+  border:3px solid rgba(8,9,20,.9)!important;
+
+  box-shadow:
+    0 0 0 2px #6366f1,
+    0 0 0 4px rgba(236,72,153,.28),
+    0 8px 25px rgba(99,102,241,.30);
+
+  overflow:hidden;
 }
-.create-input::placeholder{
-  color:#888;
+
+.story-add{
+  background:
+    radial-gradient(
+      circle,
+      rgba(99,102,241,.30),
+      rgba(255,255,255,.04)
+    )!important;
 }
-.create-actions{
+
+.story-add::before{
+  content:"+";
+  font-size:34px;
+  font-weight:300;
+}
+
+.story-add{
+  font-size:0;
+}
+
+.story-name{
+  display:block;
+  max-width:76px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#d9d9e5;
+  font-size:13px;
+}
+
+/* ===== CREATE ===== */
+
+.create{
+  margin:5px 0 14px;
+  padding:16px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:25px;
+  background:rgba(255,255,255,.065);
+  backdrop-filter:blur(25px);
+  -webkit-backdrop-filter:blur(25px);
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.20),
+    inset 0 1px 0 rgba(255,255,255,.07);
+}
+
+.create-top{
   display:flex;
-  gap:8px;
-  margin-top:12px;
+  align-items:center;
+  gap:12px;
 }
-.create-actions button{
-  flex:1;
-  padding:9px;
-  border-radius:13px;
+
+.my-avatar{
+  width:52px;
+  height:52px;
+  flex:0 0 52px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#6366f1,#ec4899);
+  font-weight:800;
+  font-size:21px;
+}
+
+.create-input{
+  width:100%;
+  border:1px solid rgba(255,255,255,.07);
+  outline:none;
+  border-radius:22px;
+  padding:15px 17px;
+  color:#fff;
   background:rgba(255,255,255,.07);
 }
-/* POSTS */
-.post{
-  margin-top:13px;
-  overflow:hidden;
-  border-radius:22px;
+
+.create-input::placeholder{
+  color:#9696a8;
 }
-.post-head{
+
+.create-buttons{
   display:flex;
-  align-items:center;
   gap:10px;
-  padding:13px;
+  margin-top:13px;
 }
-.avatar{
-  width:43px;
-  height:43px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#7c3aed,#ec4899);
-  font-weight:800;
-}
-.user{
+
+.create-btn{
   flex:1;
+  min-height:46px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:17px;
+  background:rgba(255,255,255,.055);
+  color:#e9e9f2;
 }
-.user strong{
-  display:block;
+
+.create-btn:active{
+  transform:scale(.97);
 }
-.user small{
-  color:#888;
+
+/* ===== POST ===== */
+
+.post{
+  margin-bottom:15px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:27px;
+  background:rgba(255,255,255,.055);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  box-shadow:0 20px 55px rgba(0,0,0,.22);
 }
-.more{
-  background:transparent;
-  font-size:20px;
-}
-.post-image{
-  height:390px;
-  display:grid;
-  place-items:center;
-  font-size:42px;
-  font-weight:900;
-  background:
-    linear-gradient(135deg,rgba(124,58,237,.8),rgba(236,72,153,.7)),
-    #111;
-}
-.post-actions{
-  display:flex;
-  gap:18px;
-  padding:12px 14px 5px;
-}
-.post-actions button{
-  background:transparent;
-  font-size:23px;
-}
-.post-actions .save{
-  margin-left:auto;
-}
-.caption{
-  padding:0 14px 16px;
-  line-height:1.45;
-}
-/* SEARCH */
-.search-box{
+
+.post-header{
   display:flex;
   align-items:center;
-  gap:9px;
-  padding:13px 15px;
-  border-radius:18px;
+  gap:12px;
+  padding:15px;
 }
-.search-box input{
+
+.user-avatar{
+  width:47px;
+  height:47px;
+  flex:0 0 47px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#22d3ee,#6366f1,#ec4899);
+  font-weight:800;
+  border:2px solid rgba(255,255,255,.18);
+}
+
+.user-info{
   flex:1;
+}
+
+.user-name{
+  font-weight:800;
+  font-size:16px;
+}
+
+.user-handle{
+  color:#9999aa;
+  font-size:13px;
+  margin-top:2px;
+}
+
+.more{
   border:0;
-  outline:0;
   background:transparent;
   color:#fff;
+  font-size:23px;
 }
-.search-box input::placeholder{
-  color:#888;
-}
-.person{
-  margin-top:10px;
-  padding:13px;
-  border-radius:18px;
+
+.post-media{
+  width:100%;
+  height:390px;
   display:flex;
   align-items:center;
-  gap:11px;
+  justify-content:center;
+  font-size:31px;
+  font-weight:900;
+  background:
+    linear-gradient(
+      135deg,
+      #312e81,
+      #7e22ce,
+      #db2777
+    );
 }
+
+.post-actions{
+  display:flex;
+  gap:10px;
+  padding:13px 15px 5px;
+}
+
+.action{
+  border:0;
+  background:transparent;
+  color:#fff;
+  font-size:23px;
+  padding:4px;
+}
+
+.action.like.active{
+  color:#ff4f91;
+}
+
+.post-text{
+  padding:5px 15px 18px;
+  line-height:1.5;
+  color:#e7e7ed;
+}
+
+/* ===== SEARCH ===== */
+
+.search-title{
+  font-size:27px;
+  font-weight:850;
+  margin:10px 4px 15px;
+}
+
+.search-input{
+  width:100%;
+  border:1px solid rgba(255,255,255,.10);
+  outline:none;
+  border-radius:19px;
+  padding:15px;
+  background:rgba(255,255,255,.07);
+  color:#fff;
+}
+
+.search-input::placeholder{
+  color:#9292a2;
+}
+
+.people{
+  margin-top:15px;
+}
+
+.person{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:13px;
+  margin-bottom:9px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+  background:rgba(255,255,255,.055);
+}
+
 .person-info{
   flex:1;
 }
-.person-info small{
-  color:#888;
+
+.person-name{
+  font-weight:800;
 }
+
+.person-username{
+  color:#888899;
+  font-size:13px;
+  margin-top:2px;
+}
+
 .follow{
+  border:0;
+  border-radius:13px;
+  padding:10px 15px;
   background:#fff;
-  color:#000;
-  border-radius:11px;
-  padding:9px 13px;
-  font-weight:700;
+  color:#090914;
+  font-weight:800;
 }
-/* REELS */
+
+.follow.active{
+  background:rgba(255,255,255,.10);
+  color:#fff;
+}
+
+/* ===== REELS ===== */
+
 .reels{
-  height:calc(100vh - 78px);
+  height:calc(100vh - 100px);
+  margin:-8px -12px -105px;
   overflow-y:auto;
   scroll-snap-type:y mandatory;
-  border-radius:22px;
+  background:#000;
 }
+
 .reel{
-  height:calc(100vh - 78px);
-  min-height:520px;
+  height:calc(100vh - 100px);
+  min-height:550px;
   position:relative;
-  scroll-snap-align:start;
   overflow:hidden;
-  background:#111;
+  scroll-snap-align:start;
 }
+
 .reel-bg{
   position:absolute;
   inset:0;
-  display:grid;
-  place-items:center;
-  font-size:42px;
-  font-weight:900;
-}
-.r1{background:linear-gradient(145deg,#111827,#7c3aed,#ec4899)}
-.r2{background:linear-gradient(145deg,#020617,#0369a1,#14b8a6)}
-.r3{background:linear-gradient(145deg,#171717,#be123c,#7c2d12)}
-.reel-info{
-  position:absolute;
-  left:15px;
-  right:75px;
-  bottom:18px;
-  padding:15px;
-  border-radius:18px;
-  background:rgba(0,0,0,.35);
-  backdrop-filter:blur(14px);
-}
-.reel-buttons{
-  position:absolute;
-  right:12px;
-  bottom:20px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.reel-buttons button{
-  width:47px;
-  height:47px;
-  border-radius:50%;
-  background:rgba(0,0,0,.42);
-  backdrop-filter:blur(12px);
-  font-size:20px;
-}
-/* CHAT */
-.chat-box{
-  height:calc(100vh - 125px);
-  border-radius:22px;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-}
-.chat-head{
-  padding:15px;
-  border-bottom:1px solid rgba(255,255,255,.1);
   display:flex;
   align-items:center;
-  gap:10px;
+  justify-content:center;
+  font-size:43px;
+  font-weight:900;
+  background:
+    linear-gradient(
+      145deg,
+      #111827,
+      #4f46e5,
+      #ec4899
+    );
 }
+
+.reel:nth-child(2) .reel-bg{
+  background:
+    linear-gradient(
+      145deg,
+      #172554,
+      #7e22ce,
+      #be185d
+    );
+}
+
+.reel:nth-child(3) .reel-bg{
+  background:
+    linear-gradient(
+      145deg,
+      #082f49,
+      #0369a1,
+      #14b8a6
+    );
+}
+
+.reel-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    transparent 45%,
+    rgba(0,0,0,.82)
+  );
+}
+
+.reel-bottom{
+  position:absolute;
+  left:0;
+  right:75px;
+  bottom:0;
+  padding:90px 18px 28px;
+}
+
+.reel-user{
+  font-size:18px;
+  font-weight:850;
+}
+
+.reel-caption{
+  margin-top:7px;
+  color:#eee;
+  line-height:1.4;
+}
+
+.reel-actions{
+  position:absolute;
+  right:12px;
+  bottom:28px;
+  display:flex;
+  flex-direction:column;
+  gap:13px;
+}
+
+.reel-button{
+  width:49px;
+  height:49px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:50%;
+  background:rgba(0,0,0,.45);
+  color:#fff;
+  font-size:20px;
+  backdrop-filter:blur(15px);
+}
+
+/* ===== CHAT ===== */
+
+.chat{
+  height:calc(100vh - 110px);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:25px;
+  background:rgba(255,255,255,.055);
+  backdrop-filter:blur(25px);
+}
+
+.chat-top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:15px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.chat-user{
+  font-weight:800;
+}
+
 .online{
-  color:#22c55e;
-  font-size:11px;
+  color:#4ade80;
+  font-size:12px;
+  margin-top:2px;
 }
+
 .messages{
   flex:1;
   overflow-y:auto;
-  padding:15px;
+  padding:16px;
 }
-.msg{
+
+.message{
   display:flex;
   margin-bottom:10px;
 }
-.msg.me{
+
+.message.me{
   justify-content:flex-end;
 }
+
 .bubble{
   max-width:75%;
-  padding:10px 13px;
-  border-radius:17px;
-  background:rgba(255,255,255,.1);
+  padding:11px 14px;
+  border-radius:18px;
+  background:rgba(255,255,255,.10);
+  color:#fff;
+  line-height:1.4;
 }
-.msg.me .bubble{
-  background:linear-gradient(135deg,#635bff,#a855f7);
+
+.message.me .bubble{
+  background:linear-gradient(135deg,#6366f1,#a855f7);
 }
-.chat-send{
-  padding:10px;
+
+.chat-input{
   display:flex;
   gap:8px;
-  border-top:1px solid rgba(255,255,255,.1);
+  padding:10px;
+  border-top:1px solid rgba(255,255,255,.08);
 }
-.chat-send input{
+
+.chat-input input{
   flex:1;
+  min-width:0;
   border:0;
-  outline:0;
-  border-radius:18px;
-  padding:12px;
+  outline:none;
+  border-radius:20px;
+  padding:12px 15px;
   background:rgba(255,255,255,.08);
   color:#fff;
 }
-.chat-send button{
+
+.chat-input button{
   width:44px;
+  height:44px;
+  border:0;
   border-radius:50%;
-  background:#7c3aed;
+  background:#6366f1;
+  color:#fff;
 }
-/* PROFILE */
+
+/* ===== PROFILE ===== */
+
+.profile{
+  padding:22px 8px;
+}
+
 .profile-card{
-  padding:20px;
-  border-radius:24px;
+  padding:22px;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:27px;
+  background:rgba(255,255,255,.055);
+  backdrop-filter:blur(25px);
 }
-.profile-top{
+
+.profile-head{
   display:flex;
   align-items:center;
-  gap:15px;
+  gap:17px;
 }
+
 .profile-avatar{
-  width:88px;
-  height:88px;
+  width:90px;
+  height:90px;
   border-radius:50%;
-  display:grid;
-  place-items:center;
-  font-size:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#6366f1,#ec4899);
+  font-size:29px;
   font-weight:800;
-  background:linear-gradient(135deg,#7c3aed,#ec4899);
-  outline:2px solid rgba(255,255,255,.2);
+  border:3px solid rgba(255,255,255,.18);
 }
+
 .profile-name{
-  font-size:22px;
+  font-size:23px;
   font-weight:850;
 }
-.profile-user{
-  color:#888;
+
+.profile-username{
+  color:#9292a2;
   margin-top:3px;
 }
+
 .stats{
   display:flex;
   gap:28px;
   margin-top:20px;
 }
-.stat{
-  text-align:center;
-}
+
 .stat strong{
   display:block;
-  font-size:18px;
+  font-size:19px;
 }
-.stat small{
-  color:#888;
+
+.stat span{
+  color:#898999;
+  font-size:12px;
 }
-.bio{
+
+.profile-bio{
   margin-top:18px;
+  color:#ddd;
   line-height:1.5;
 }
-.edit{
+
+.profile-button{
   width:100%;
   margin-top:17px;
   padding:12px;
+  border:0;
   border-radius:14px;
-  background:rgba(255,255,255,.1);
+  background:#fff;
+  color:#090914;
+  font-weight:800;
 }
-/* NAVIGATION */
-.nav{
+
+/* ===== BOTTOM NAV ===== */
+
+.bottom-nav{
   position:fixed;
   left:10px;
   right:10px;
   bottom:10px;
-  height:68px;
-  z-index:100;
-  border-radius:23px;
-  display:flex;
-  background:rgba(18,18,23,.78);
+  height:70px;
+  z-index:200;
+
   border:1px solid rgba(255,255,255,.13);
+  border-radius:25px;
+
+  background:rgba(18,15,35,.78);
+
   backdrop-filter:blur(25px);
   -webkit-backdrop-filter:blur(25px);
-  box-shadow:0 10px 35px rgba(0,0,0,.45);
+
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.07);
 }
-.nav button{
+
+.nav-inner{
+  width:100%;
+  height:100%;
+  display:flex;
+}
+
+.nav-button{
   flex:1;
+  border:0;
   background:transparent;
-  color:#777;
+  color:#858595;
   font-size:21px;
 }
-.nav button span{
+
+.nav-button span{
   display:block;
+  margin-top:2px;
   font-size:10px;
-  margin-top:3px;
 }
-.nav button.active{
+
+.nav-button.active{
   color:#fff;
+  font-weight:800;
 }
+
+.nav-button.active::before{
+  content:"";
+  display:block;
+  width:28px;
+  height:3px;
+  margin:0 auto 4px;
+  border-radius:10px;
+  background:linear-gradient(90deg,#6366f1,#ec4899);
+}
+
+/* ===== MOBILE ===== */
+
 @media(max-width:600px){
-  header{
-    height:60px;
+
+  .header{
+    padding:9px 8px;
   }
-  .page{
-    padding-left:10px;
-    padding-right:10px;
+
+  .header-inner{
+    height:58px;
+    border-radius:21px;
   }
-  .post-image{
-    height:370px;
+
+  .logo{
+    font-size:23px;
   }
-  .nav{
+
+  .main{
+    padding-left:8px;
+    padding-right:8px;
+  }
+
+  .stories{
+    gap:17px;
+    padding-left:5px;
+  }
+
+  .post-media{
+    height:390px;
+  }
+
+  .bottom-nav{
+    left:8px;
+    right:8px;
     bottom:8px;
   }
 }
 </style>
 </head>
+
 <body>
-<div class="bg"></div>
-<header>
-  <div class="logo">Social Network</div>
-  <div class="header-actions">
-    <button class="circle" onclick="showPage('search')">⌕</button>
-    <button class="circle">♡</button>
+
+<!-- HEADER -->
+
+<header class="header">
+  <div class="header-inner">
+
+    <div class="logo">Social Network</div>
+
+    <div class="header-buttons">
+      <button class="header-btn" onclick="showSection('search')">⌕</button>
+      <button class="header-btn">♡</button>
+    </div>
+
   </div>
 </header>
-<!-- HOME -->
-<section id="home" class="page active">
+
+
+<main class="main">
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="section">
+
+  <!-- STORIES -->
+
   <div class="stories">
+
     <div class="story">
-      <div class="story-avatar add">＋</div>
-      <div>Ваша история</div>
+      <div class="story-avatar story-add"></div>
+      <span class="story-name">Ваша история</span>
     </div>
+
     <div class="story">
       <div class="story-avatar">A</div>
-      <div>Alex</div>
+      <span class="story-name">Alex</span>
     </div>
+
     <div class="story">
       <div class="story-avatar">M</div>
-      <div>Maria</div>
+      <span class="story-name">Maria</span>
     </div>
+
     <div class="story">
       <div class="story-avatar">D</div>
-      <div>David</div>
+      <span class="story-name">David</span>
     </div>
+
     <div class="story">
       <div class="story-avatar">S</div>
-      <div>Sara</div>
+      <span class="story-name">Sofia</span>
     </div>
+
+    <div class="story">
+      <div class="story-avatar">N</div>
+      <span class="story-name">Nikita</span>
+    </div>
+
   </div>
-  <div class="create glass">
-    <div class="create-row">
-      <div class="create-avatar">A</div>
-      <input class="create-input" placeholder="Что нового?">
+
+
+  <!-- CREATE -->
+
+  <div class="create">
+
+    <div class="create-top">
+
+      <div class="my-avatar">A</div>
+
+      <input
+        class="create-input"
+        placeholder="Что нового?"
+      >
+
     </div>
-    <div class="create-actions">
-      <button>📷 Фото</button>
-      <button>🎬 Видео</button>
-      <button>✨ История</button>
+
+    <div class="create-buttons">
+
+      <button class="create-btn">📷 Фото</button>
+      <button class="create-btn">🎬 Видео</button>
+      <button class="create-btn">✨ История</button>
+
     </div>
+
   </div>
-  <article class="post glass">
-    <div class="post-head">
-      <div class="avatar">A</div>
-      <div class="user">
-        <strong>Alex</strong>
-        <small>@alex • 2 ч.</small>
+
+
+  <!-- POST -->
+
+  <article class="post">
+
+    <div class="post-header">
+
+      <div class="user-avatar">A</div>
+
+      <div class="user-info">
+        <div class="user-name">Alex</div>
+        <div class="user-handle">@alex · 2 ч.</div>
       </div>
+
       <button class="more">•••</button>
+
     </div>
-    <div class="post-image">
-      SOCIAL
+
+    <div class="post-media">
+      PHOTO
     </div>
+
     <div class="post-actions">
-      <button>♡</button>
-      <button>💬</button>
-      <button>↗</button>
-      <button class="save">🔖</button>
+
+      <button class="action like" onclick="this.classList.toggle('active')">
+        ♡
+      </button>
+
+      <button class="action">
+        ◯
+      </button>
+
+      <button class="action">
+        ➤
+      </button>
+
+      <button class="action" style="margin-left:auto">
+        ♧
+      </button>
+
     </div>
-    <div class="caption">
-      <strong>Alex</strong> Добро пожаловать в новую Social Network 🚀
+
+    <div class="post-text">
+      <b>Alex</b> Добро пожаловать в Social Network ✨
     </div>
+
   </article>
-</section>
-<!-- SEARCH -->
-<section id="search" class="page">
-  <div class="title">Поиск</div>
-  <div class="search-box glass">
-    🔍
-    <input placeholder="Найти людей...">
-  </div>
-  <div class="person glass">
-    <div class="avatar">M</div>
-    <div class="person-info">
-      <strong>Maria</strong><br>
-      <small>@maria</small>
+
+
+  <article class="post">
+
+    <div class="post-header">
+
+      <div class="user-avatar">M</div>
+
+      <div class="user-info">
+        <div class="user-name">Maria</div>
+        <div class="user-handle">@maria · 4 ч.</div>
+      </div>
+
+      <button class="more">•••</button>
+
     </div>
-    <button class="follow">Подписаться</button>
-  </div>
-  <div class="person glass">
-    <div class="avatar">D</div>
-    <div class="person-info">
-      <strong>David</strong><br>
-      <small>@david</small>
+
+    <div
+      class="post-media"
+      style="background:linear-gradient(135deg,#0f766e,#0891b2,#6366f1)"
+    >
+      VIDEO
     </div>
-    <button class="follow">Подписаться</button>
-  </div>
+
+    <div class="post-actions">
+
+      <button class="action like" onclick="this.classList.toggle('active')">
+        ♡
+      </button>
+
+      <button class="action">◯</button>
+      <button class="action">➤</button>
+
+    </div>
+
+    <div class="post-text">
+      <b>Maria</b> Новый день — новые идеи 🚀
+    </div>
+
+  </article>
+
 </section>
-<!-- REELS -->
-<section id="reels" class="page">
+
+
+<!-- ================= SEARCH ================= -->
+
+<section id="search" class="section hidden">
+
+  <div class="search-title">
+    Поиск
+  </div>
+
+  <input
+    class="search-input"
+    placeholder="Найти людей..."
+    oninput="searchPeople(this.value)"
+  >
+
+  <div class="people" id="people">
+
+    <div class="person">
+      <div class="user-avatar">A</div>
+      <div class="person-info">
+        <div class="person-name">Alex</div>
+        <div class="person-username">@alex</div>
+      </div>
+      <button class="follow" onclick="follow(this)">Подписаться</button>
+    </div>
+
+    <div class="person">
+      <div class="user-avatar">M</div>
+      <div class="person-info">
+        <div class="person-name">Maria</div>
+        <div class="person-username">@maria</div>
+      </div>
+      <button class="follow" onclick="follow(this)">Подписаться</button>
+    </div>
+
+    <div class="person">
+      <div class="user-avatar">D</div>
+      <div class="person-info">
+        <div class="person-name">David</div>
+        <div class="person-username">@david</div>
+      </div>
+      <button class="follow" onclick="follow(this)">Подписаться</button>
+    </div>
+
+    <div class="person">
+      <div class="user-avatar">S</div>
+      <div class="person-info">
+        <div class="person-name">Sofia</div>
+        <div class="person-username">@sofia</div>
+      </div>
+      <button class="follow" onclick="follow(this)">Подписаться</button>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= REELS ================= -->
+
+<section id="reels" class="section hidden">
+
   <div class="reels">
+
     <div class="reel">
-      <div class="reel-bg r1">REEL 01</div>
-      <div class="reel-info glass">
-        <strong>@alex</strong>
-        <div>Новый день — новый момент ✨</div>
+
+      <div class="reel-bg">
+        REEL 01
       </div>
-      <div class="reel-buttons">
-        <button>♡</button>
-        <button>💬</button>
-        <button>↗</button>
+
+      <div class="reel-overlay"></div>
+
+      <div class="reel-bottom">
+        <div class="reel-user">@alex</div>
+        <div class="reel-caption">
+          Первый Reels в Social Network 🚀
+        </div>
       </div>
+
+      <div class="reel-actions">
+        <button class="reel-button">♡</button>
+        <button class="reel-button">💬</button>
+        <button class="reel-button">➤</button>
+        <button class="reel-button">•••</button>
+      </div>
+
     </div>
+
+
     <div class="reel">
-      <div class="reel-bg r2">REEL 02</div>
-      <div class="reel-info glass">
-        <strong>@maria</strong>
-        <div>Красивый момент 🎬</div>
+
+      <div class="reel-bg">
+        REEL 02
       </div>
-      <div class="reel-buttons">
-        <button>♡</button>
-        <button>💬</button>
-        <button>↗</button>
+
+      <div class="reel-overlay"></div>
+
+      <div class="reel-bottom">
+        <div class="reel-user">@maria</div>
+        <div class="reel-caption">
+          Что думаете об этом? ✨
+        </div>
       </div>
+
+      <div class="reel-actions">
+        <button class="reel-button">♡</button>
+        <button class="reel-button">💬</button>
+        <button class="reel-button">➤</button>
+        <button class="reel-button">•••</button>
+      </div>
+
     </div>
+
+
     <div class="reel">
-      <div class="reel-bg r3">REEL 03</div>
-      <div class="reel-info glass">
-        <strong>@david</strong>
-        <div>Добро пожаловать в Reels 🔥</div>
+
+      <div class="reel-bg">
+        REEL 03
       </div>
-      <div class="reel-buttons">
-        <button>♡</button>
-        <button>💬</button>
-        <button>↗</button>
+
+      <div class="reel-overlay"></div>
+
+      <div class="reel-bottom">
+        <div class="reel-user">@david</div>
+        <div class="reel-caption">
+          Новый ролик уже здесь 🎬
+        </div>
       </div>
+
+      <div class="reel-actions">
+        <button class="reel-button">♡</button>
+        <button class="reel-button">💬</button>
+        <button class="reel-button">➤</button>
+        <button class="reel-button">•••</button>
+      </div>
+
     </div>
+
   </div>
+
 </section>
-<!-- CHAT -->
-<section id="chat" class="page">
-  <div class="chat-box glass">
-    <div class="chat-head">
-      <div class="avatar">M</div>
+
+
+<!-- ================= CHAT ================= -->
+
+<section id="chat" class="section hidden">
+
+  <div class="chat">
+
+    <div class="chat-top">
+
+      <div class="user-avatar">M</div>
+
       <div>
-        <strong>Maria</strong><br>
-        <span class="online">● в сети</span>
+        <div class="chat-user">Maria</div>
+        <div class="online">● в сети</div>
       </div>
+
     </div>
-    <div class="messages">
-      <div class="msg">
-        <div class="bubble">Привет 👋</div>
+
+    <div class="messages" id="messages">
+
+      <div class="message">
+        <div class="bubble">
+          Привет! 👋
+        </div>
       </div>
-      <div class="msg me">
-        <div class="bubble">Привет! Как дела?</div>
+
+      <div class="message">
+        <div class="bubble">
+          Добро пожаловать!
+        </div>
       </div>
-      <div class="msg">
-        <div class="bubble">Всё отлично 🔥</div>
+
+      <div class="message me">
+        <div class="bubble">
+          Спасибо 😎
+        </div>
       </div>
+
     </div>
-    <div class="chat-send">
-      <input placeholder="Сообщение...">
-      <button>➤</button>
+
+    <div class="chat-input">
+
+      <input
+        id="messageInput"
+        placeholder="Сообщение..."
+        onkeydown="if(event.key==='Enter')sendMessage()"
+      >
+
+      <button onclick="sendMessage()">➤</button>
+
     </div>
+
   </div>
+
 </section>
-<!-- PROFILE -->
-<section id="profile" class="page">
-  <div class="profile-card glass">
-    <div class="profile-top">
-      <div class="profile-avatar">A</div>
-      <div>
-        <div class="profile-name">Aslidin</div>
-        <div class="profile-user">@aslidin</div>
+
+
+<!-- ================= PROFILE ================= -->
+
+<section id="profile" class="section hidden">
+
+  <div class="profile">
+
+    <div class="profile-card">
+
+      <div class="profile-head">
+
+        <div class="profile-avatar">A</div>
+
+        <div>
+          <div class="profile-name">Alex</div>
+          <div class="profile-username">@alex</div>
+        </div>
+
       </div>
+
+      <div class="stats">
+
+        <div class="stat">
+          <strong>24</strong>
+          <span>Публикации</span>
+        </div>
+
+        <div class="stat">
+          <strong>156</strong>
+          <span>Подписчики</span>
+        </div>
+
+        <div class="stat">
+          <strong>89</strong>
+          <span>Подписки</span>
+        </div>
+
+      </div>
+
+      <div class="profile-bio">
+        Добро пожаловать на мою страницу ✨<br>
+        Создаю что-то новое 🚀
+      </div>
+
+      <button class="profile-button">
+        Редактировать профиль
+      </button>
+
     </div>
-    <div class="stats">
-      <div class="stat">
-        <strong>0</strong>
-        <small>Публикации</small>
-      </div>
-      <div class="stat">
-        <strong>0</strong>
-        <small>Подписчики</small>
-      </div>
-      <div class="stat">
-        <strong>0</strong>
-        <small>Подписки</small>
-      </div>
-    </div>
-    <div class="bio">
-      Добро пожаловать в мой профиль 👋
-    </div>
-    <button class="edit">Редактировать профиль</button>
+
   </div>
+
 </section>
-<!-- NAV -->
-<nav class="nav">
-  <button class="active" onclick="showPage('home',this)">
-    🏠
-    <span>Главная</span>
-  </button>
-  <button onclick="showPage('search',this)">
-    🔍
-    <span>Поиск</span>
-  </button>
-  <button onclick="showPage('reels',this)">
-    🎬
-    <span>Reels</span>
-  </button>
-  <button onclick="showPage('chat',this)">
-    💬
-    <span>Чат</span>
-  </button>
-  <button onclick="showPage('profile',this)">
-    👤
-    <span>Профиль</span>
-  </button>
+
+</main>
+
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav class="bottom-nav">
+
+  <div class="nav-inner">
+
+    <button
+      class="nav-button active"
+      onclick="showSection('home',this)"
+    >
+      🏠
+      <span>Главная</span>
+    </button>
+
+    <button
+      class="nav-button"
+      onclick="showSection('search',this)"
+    >
+      🔎
+      <span>Поиск</span>
+    </button>
+
+    <button
+      class="nav-button"
+      onclick="showSection('reels',this)"
+    >
+      🎬
+      <span>Reels</span>
+    </button>
+
+    <button
+      class="nav-button"
+      onclick="showSection('chat',this)"
+    >
+      💬
+      <span>Чат</span>
+    </button>
+
+    <button
+      class="nav-button"
+      onclick="showSection('profile',this)"
+    >
+      👤
+      <span>Профиль</span>
+    </button>
+
+  </div>
+
 </nav>
+
+
 <script>
-function showPage(id,button){
-  document.querySelectorAll('.page').forEach(function(page){
-    page.classList.remove('active');
+
+function showSection(id,button){
+
+  document.querySelectorAll(".section").forEach(section=>{
+    section.classList.add("hidden");
   });
-  var page=document.getElementById(id);
-  if(page){
-    page.classList.add('active');
+
+  const section=document.getElementById(id);
+
+  if(section){
+    section.classList.remove("hidden");
   }
-  document.querySelectorAll('.nav button').forEach(function(btn){
-    btn.classList.remove('active');
+
+  document.querySelectorAll(".nav-button").forEach(btn=>{
+    btn.classList.remove("active");
   });
+
   if(button){
-    button.classList.add('active');
+    button.classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+function follow(button){
+
+  button.classList.toggle("active");
+
+  if(button.classList.contains("active")){
+    button.textContent="Вы подписаны";
+  }else{
+    button.textContent="Подписаться";
   }
 }
+
+
+function searchPeople(value){
+
+  const people=document.querySelectorAll(".person");
+
+  value=value.toLowerCase().trim();
+
+  people.forEach(person=>{
+
+    const text=person.innerText.toLowerCase();
+
+    if(text.includes(value)){
+      person.style.display="flex";
+    }else{
+      person.style.display="none";
+    }
+
+  });
+}
+
+
+function sendMessage(){
+
+  const input=document.getElementById("messageInput");
+  const messages=document.getElementById("messages");
+
+  const text=input.value.trim();
+
+  if(!text) return;
+
+  const message=document.createElement("div");
+
+  message.className="message me";
+
+  message.innerHTML=
+    '<div class="bubble">'+
+    escapeHTML(text)+
+    '</div>';
+
+  messages.appendChild(message);
+
+  input.value="";
+
+  messages.scrollTop=messages.scrollHeight;
+}
+
+
+function escapeHTML(text){
+
+  const div=document.createElement("div");
+
+  div.textContent=text;
+
+  return div.innerHTML;
+}
+
 </script>
+
 </body>
 </html>
-<link rel="stylesheet" href="style.css">
