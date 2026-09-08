@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="theme-color" content="#080914">
+<meta name="theme-color" content="#000000">
 <title>Social Network</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent;
@@ -42,7 +43,8 @@ button{
   display:none!important;
 }
 
-/* ===== HEADER ===== */
+
+/* ================= HEADER ================= */
 
 .header{
   position:sticky;
@@ -99,7 +101,8 @@ button{
   backdrop-filter:blur(15px);
 }
 
-/* ===== MAIN ===== */
+
+/* ================= MAIN ================= */
 
 .main{
   width:100%;
@@ -116,7 +119,8 @@ button{
   display:none;
 }
 
-/* ===== STORIES ===== */
+
+/* ================= STORIES ================= */
 
 .stories{
   display:flex;
@@ -179,16 +183,14 @@ button{
       rgba(99,102,241,.30),
       rgba(255,255,255,.04)
     )!important;
+
+  font-size:0;
 }
 
 .story-add::before{
   content:"+";
   font-size:34px;
   font-weight:300;
-}
-
-.story-add{
-  font-size:0;
 }
 
 .story-name{
@@ -201,7 +203,8 @@ button{
   font-size:13px;
 }
 
-/* ===== CREATE ===== */
+
+/* ================= CREATE ================= */
 
 .create{
   margin:5px 0 14px;
@@ -268,7 +271,8 @@ button{
   transform:scale(.97);
 }
 
-/* ===== POST ===== */
+
+/* ================= POST ================= */
 
 .post{
   margin-bottom:15px;
@@ -364,7 +368,8 @@ button{
   color:#e7e7ed;
 }
 
-/* ===== SEARCH ===== */
+
+/* ================= SEARCH ================= */
 
 .search-title{
   font-size:27px;
@@ -429,133 +434,324 @@ button{
   color:#fff;
 }
 
-/* ===== REELS ===== */
 
-.reels{
-  height:calc(100vh - 100px);
-  margin:-8px -12px -105px;
-  overflow-y:auto;
-  scroll-snap-type:y mandatory;
+/* ================================================= */
+/* ================= REELS ========================= */
+/* ================================================= */
+
+.reels-screen{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:80px;
+
   background:#000;
+
+  z-index:50;
+
+  overflow-y:auto;
+  overflow-x:hidden;
+
+  scroll-snap-type:y mandatory;
+
+  scrollbar-width:none;
+}
+
+.reels-screen::-webkit-scrollbar{
+  display:none;
 }
 
 .reel{
   position:relative;
-  height:calc(100vh - 100px);
-  min-height:560px;
-  scroll-snap-align:start;
-  overflow:hidden;
+
+  width:100%;
+  height:100vh;
+  min-height:600px;
+
   background:#000;
+
+  overflow:hidden;
+
+  scroll-snap-align:start;
 }
 
-.reel-bg{
+
+/* VIDEO */
+
+.reel-video{
   position:absolute;
   inset:0;
 
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:12px;
+
+  background:#000;
+}
+
+.video-placeholder{
+  width:100%;
+  height:56.25vw;
+
+  max-height:78vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
   font-size:70px;
-  font-weight:900;
-  color:#fff;
-}
-
-.reel-bg span{
-  font-size:28px;
-  letter-spacing:3px;
-}
-
-.reel-one{
-  background:
-    radial-gradient(circle at 20% 20%,#ec4899,transparent 30%),
-    linear-gradient(145deg,#111827,#4f46e5,#7c3aed);
-}
-
-.reel-two{
-  background:
-    radial-gradient(circle at 80% 20%,#06b6d4,transparent 30%),
-    linear-gradient(145deg,#172554,#7e22ce,#be185d);
-}
-
-.reel-three{
-  background:
-    radial-gradient(circle at 30% 20%,#22c55e,transparent 25%),
-    linear-gradient(145deg,#020617,#0369a1,#14b8a6);
-}
-
-.reel-gradient{
-  position:absolute;
-  inset:0;
 
   background:
     linear-gradient(
-      transparent 35%,
-      transparent 50%,
-      rgba(0,0,0,.9) 100%
+      145deg,
+      #111827,
+      #4f46e5,
+      #ec4899
     );
 }
 
-.reel-info{
+.video-two{
+  background:
+    linear-gradient(
+      145deg,
+      #172554,
+      #7e22ce,
+      #be185d
+    );
+}
+
+.video-three{
+  background:
+    linear-gradient(
+      145deg,
+      #020617,
+      #0369a1,
+      #14b8a6
+    );
+}
+
+
+/* VIDEO GRADIENT */
+
+.reel-overlay{
   position:absolute;
-  left:18px;
-  right:85px;
-  bottom:25px;
-  z-index:2;
+  inset:0;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 48%,
+      rgba(0,0,0,.18) 65%,
+      rgba(0,0,0,.92) 100%
+    );
 }
 
-.reel-info b{
-  font-size:18px;
-}
 
-.reel-info p{
-  margin:7px 0;
-  line-height:1.4;
-}
-
-.reel-info small{
-  color:#ddd;
-}
+/* RIGHT BUTTONS */
 
 .reel-actions{
   position:absolute;
-  right:13px;
-  bottom:25px;
-  z-index:3;
+
+  right:10px;
+  bottom:120px;
+
+  z-index:10;
 
   display:flex;
   flex-direction:column;
-  gap:14px;
+  align-items:center;
+
+  gap:15px;
 }
 
-.reel-actions button{
-  width:50px;
-  height:50px;
+.reel-button{
+  width:53px;
+  min-height:53px;
 
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:50%;
+  padding:0;
 
-  background:rgba(0,0,0,.45);
+  border:0;
+
+  background:transparent;
+
   color:#fff;
 
-  backdrop-filter:blur(15px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
 
-  font-size:22px;
+  font-size:31px;
+
+  text-shadow:
+    0 2px 8px rgba(0,0,0,.8);
 }
 
-.reel-actions button small{
-  display:block;
+.reel-button small{
+  margin-top:4px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.reel-button.liked{
+  color:#ff315f;
+}
+
+
+/* USER */
+
+.reel-bottom{
+  position:absolute;
+
+  left:18px;
+  right:80px;
+  bottom:28px;
+
+  z-index:10;
+}
+
+.reel-user-line{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.reel-avatar{
+  width:49px;
+  height:49px;
+
+  flex:0 0 49px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:23px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffb300,
+      #ff006a,
+      #7c3aed
+    );
+
+  border:2px solid #fff;
+
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,.25);
+}
+
+.reel-user-info{
+  min-width:0;
+
+  display:flex;
+  flex-direction:column;
+}
+
+.reel-user{
+  font-size:17px;
+  font-weight:850;
+
+  white-space:nowrap;
+}
+
+.reel-category{
   margin-top:2px;
-  font-size:8px;
+
+  font-size:12px;
+
+  color:#ddd;
 }
 
-.reel-actions button.liked{
-  color:#ff4f91;
-  transform:scale(1.08);
+.follow-reel{
+  height:38px;
+
+  margin-left:5px;
+
+  padding:0 13px;
+
+  border:1px solid rgba(255,255,255,.75);
+
+  border-radius:9px;
+
+  background:rgba(0,0,0,.35);
+
+  color:#fff;
+
+  font-size:14px;
+  font-weight:750;
+
+  backdrop-filter:blur(12px);
 }
 
-/* ===== CHAT ===== */
+.follow-reel.active{
+  background:rgba(255,255,255,.18);
+}
+
+.reel-caption{
+  margin-top:12px;
+
+  color:#fff;
+
+  font-size:16px;
+
+  line-height:1.4;
+}
+
+
+/* MUSIC */
+
+.reel-music{
+  margin-top:8px;
+
+  color:#ddd;
+
+  font-size:12px;
+}
+
+
+/* SMALL PREVIEW */
+
+.reel-preview{
+  position:absolute;
+
+  right:13px;
+  bottom:25px;
+
+  width:52px;
+  height:68px;
+
+  z-index:11;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:9px;
+
+  border:2px solid rgba(255,255,255,.9);
+
+  background:
+    linear-gradient(
+      145deg,
+      #111827,
+      #ec4899
+    );
+
+  font-size:23px;
+
+  box-shadow:
+    0 3px 15px rgba(0,0,0,.6);
+}
+
+
+/* ================= CHAT ================= */
 
 .chat{
   height:calc(100vh - 110px);
@@ -641,7 +837,8 @@ button{
   color:#fff;
 }
 
-/* ===== PROFILE ===== */
+
+/* ================= PROFILE ================= */
 
 .profile{
   padding:22px 8px;
@@ -717,14 +914,18 @@ button{
   font-weight:800;
 }
 
-/* ===== BOTTOM NAV ===== */
+
+/* ================= BOTTOM NAV ================= */
 
 .bottom-nav{
   position:fixed;
+
   left:10px;
   right:10px;
   bottom:10px;
+
   height:70px;
+
   z-index:200;
 
   border:1px solid rgba(255,255,255,.13);
@@ -743,14 +944,18 @@ button{
 .nav-inner{
   width:100%;
   height:100%;
+
   display:flex;
 }
 
 .nav-button{
   flex:1;
+
   border:0;
   background:transparent;
+
   color:#858595;
+
   font-size:21px;
 }
 
@@ -767,15 +972,46 @@ button{
 
 .nav-button.active::before{
   content:"";
+
   display:block;
+
   width:28px;
   height:3px;
+
   margin:0 auto 4px;
+
   border-radius:10px;
-  background:linear-gradient(90deg,#6366f1,#ec4899);
+
+  background:linear-gradient(
+    90deg,
+    #6366f1,
+    #ec4899
+  );
 }
 
-/* ===== MOBILE ===== */
+
+/* ================= REELS MODE ================= */
+
+body.reels-mode{
+  background:#000;
+  overflow:hidden;
+}
+
+body.reels-mode .header{
+  display:none;
+}
+
+body.reels-mode .main{
+  max-width:none;
+  padding:0;
+}
+
+body.reels-mode .bottom-nav{
+  background:rgba(0,0,0,.72);
+}
+
+
+/* ================= MOBILE ================= */
 
 @media(max-width:600px){
 
@@ -811,66 +1047,178 @@ button{
     right:8px;
     bottom:8px;
   }
+
+  .reels-screen{
+    bottom:76px;
+  }
+
+  .reel{
+    height:calc(100vh - 76px);
+    min-height:550px;
+  }
+
+  .video-placeholder{
+    height:56.25vw;
+    max-height:none;
+  }
+
+  .reel-actions{
+    right:5px;
+    bottom:120px;
+    gap:12px;
+  }
+
+  .reel-button{
+    width:50px;
+    min-height:50px;
+    font-size:29px;
+  }
+
+  .reel-bottom{
+    left:18px;
+    right:72px;
+    bottom:24px;
+  }
+
+  .follow-reel{
+    padding:0 10px;
+    font-size:13px;
+  }
+
 }
+
+
+/* ================= SAFE AREA ================= */
+
+@supports(padding:max(0px)){
+
+  .bottom-nav{
+    bottom:max(8px,env(safe-area-inset-bottom));
+  }
+
+}
+
 </style>
 </head>
 
+
 <body>
 
-<!-- HEADER -->
+
+<!-- ================= HEADER ================= -->
 
 <header class="header">
+
   <div class="header-inner">
 
-    <div class="logo">Social Network</div>
+    <div class="logo">
+      Social Network
+    </div>
 
     <div class="header-buttons">
-      <button class="header-btn" onclick="showSection('search')">⌕</button>
-      <button class="header-btn">♡</button>
+
+      <button
+        class="header-btn"
+        onclick="showSection('search')">
+        ⌕
+      </button>
+
+      <button class="header-btn">
+        ♡
+      </button>
+
     </div>
 
   </div>
+
 </header>
 
 
 <main class="main">
 
+
 <!-- ================= HOME ================= -->
 
 <section id="home" class="section">
+
 
   <!-- STORIES -->
 
   <div class="stories">
 
     <div class="story">
+
       <div class="story-avatar story-add"></div>
-      <span class="story-name">Ваша история</span>
+
+      <span class="story-name">
+        Ваша история
+      </span>
+
     </div>
 
-    <div class="story">
-      <div class="story-avatar">A</div>
-      <span class="story-name">Alex</span>
-    </div>
 
     <div class="story">
-      <div class="story-avatar">M</div>
-      <span class="story-name">Maria</span>
+
+      <div class="story-avatar">
+        A
+      </div>
+
+      <span class="story-name">
+        Alex
+      </span>
+
     </div>
 
-    <div class="story">
-      <div class="story-avatar">D</div>
-      <span class="story-name">David</span>
-    </div>
 
     <div class="story">
-      <div class="story-avatar">S</div>
-      <span class="story-name">Sofia</span>
+
+      <div class="story-avatar">
+        M
+      </div>
+
+      <span class="story-name">
+        Maria
+      </span>
+
     </div>
 
+
     <div class="story">
-      <div class="story-avatar">N</div>
-      <span class="story-name">Nikita</span>
+
+      <div class="story-avatar">
+        D
+      </div>
+
+      <span class="story-name">
+        David
+      </span>
+
+    </div>
+
+
+    <div class="story">
+
+      <div class="story-avatar">
+        S
+      </div>
+
+      <span class="story-name">
+        Sofia
+      </span>
+
+    </div>
+
+
+    <div class="story">
+
+      <div class="story-avatar">
+        N
+      </div>
+
+      <span class="story-name">
+        Nikita
+      </span>
+
     </div>
 
   </div>
@@ -882,7 +1230,9 @@ button{
 
     <div class="create-top">
 
-      <div class="my-avatar">A</div>
+      <div class="my-avatar">
+        A
+      </div>
 
       <input
         class="create-input"
@@ -891,41 +1241,65 @@ button{
 
     </div>
 
+
     <div class="create-buttons">
 
-      <button class="create-btn">📷 Фото</button>
-      <button class="create-btn">🎬 Видео</button>
-      <button class="create-btn">✨ История</button>
+      <button class="create-btn">
+        📷 Фото
+      </button>
+
+      <button class="create-btn">
+        🎬 Видео
+      </button>
+
+      <button class="create-btn">
+        ✨ История
+      </button>
 
     </div>
 
   </div>
 
 
-  <!-- POST -->
+  <!-- POST 1 -->
 
   <article class="post">
 
     <div class="post-header">
 
-      <div class="user-avatar">A</div>
-
-      <div class="user-info">
-        <div class="user-name">Alex</div>
-        <div class="user-handle">@alex · 2 ч.</div>
+      <div class="user-avatar">
+        A
       </div>
 
-      <button class="more">•••</button>
+      <div class="user-info">
+
+        <div class="user-name">
+          Alex
+        </div>
+
+        <div class="user-handle">
+          @alex · 2 ч.
+        </div>
+
+      </div>
+
+      <button class="more">
+        •••
+      </button>
 
     </div>
+
 
     <div class="post-media">
       PHOTO
     </div>
 
+
     <div class="post-actions">
 
-      <button class="action like" onclick="this.classList.toggle('active')">
+      <button
+        class="action like"
+        onclick="this.classList.toggle('active')">
         ♡
       </button>
 
@@ -937,54 +1311,87 @@ button{
         ➤
       </button>
 
-      <button class="action" style="margin-left:auto">
+      <button
+        class="action"
+        style="margin-left:auto">
         ♧
       </button>
 
     </div>
 
+
     <div class="post-text">
-      <b>Alex</b> Добро пожаловать в Social Network ✨
+
+      <b>Alex</b>
+      Добро пожаловать в Social Network ✨
+
     </div>
 
   </article>
 
 
+  <!-- POST 2 -->
+
   <article class="post">
 
     <div class="post-header">
 
-      <div class="user-avatar">M</div>
-
-      <div class="user-info">
-        <div class="user-name">Maria</div>
-        <div class="user-handle">@maria · 4 ч.</div>
+      <div class="user-avatar">
+        M
       </div>
 
-      <button class="more">•••</button>
+      <div class="user-info">
+
+        <div class="user-name">
+          Maria
+        </div>
+
+        <div class="user-handle">
+          @maria · 4 ч.
+        </div>
+
+      </div>
+
+      <button class="more">
+        •••
+      </button>
 
     </div>
+
 
     <div
       class="post-media"
-      style="background:linear-gradient(135deg,#0f766e,#0891b2,#6366f1)"
-    >
+      style="background:linear-gradient(135deg,#0f766e,#0891b2,#6366f1)">
+
       VIDEO
+
     </div>
+
 
     <div class="post-actions">
 
-      <button class="action like" onclick="this.classList.toggle('active')">
+      <button
+        class="action like"
+        onclick="this.classList.toggle('active')">
         ♡
       </button>
 
-      <button class="action">◯</button>
-      <button class="action">➤</button>
+      <button class="action">
+        ◯
+      </button>
+
+      <button class="action">
+        ➤
+      </button>
 
     </div>
 
+
     <div class="post-text">
-      <b>Maria</b> Новый день — новые идеи 🚀
+
+      <b>Maria</b>
+      Новый день — новые идеи 🚀
+
     </div>
 
   </article>
@@ -1000,48 +1407,124 @@ button{
     Поиск
   </div>
 
+
   <input
     class="search-input"
     placeholder="Найти людей..."
     oninput="searchPeople(this.value)"
   >
 
-  <div class="people" id="people">
+
+  <div
+    class="people"
+    id="people">
+
 
     <div class="person">
-      <div class="user-avatar">A</div>
-      <div class="person-info">
-        <div class="person-name">Alex</div>
-        <div class="person-username">@alex</div>
+
+      <div class="user-avatar">
+        A
       </div>
-      <button class="follow" onclick="follow(this)">Подписаться</button>
+
+      <div class="person-info">
+
+        <div class="person-name">
+          Alex
+        </div>
+
+        <div class="person-username">
+          @alex
+        </div>
+
+      </div>
+
+      <button
+        class="follow"
+        onclick="follow(this)">
+        Подписаться
+      </button>
+
     </div>
 
-    <div class="person">
-      <div class="user-avatar">M</div>
-      <div class="person-info">
-        <div class="person-name">Maria</div>
-        <div class="person-username">@maria</div>
-      </div>
-      <button class="follow" onclick="follow(this)">Подписаться</button>
-    </div>
 
     <div class="person">
-      <div class="user-avatar">D</div>
-      <div class="person-info">
-        <div class="person-name">David</div>
-        <div class="person-username">@david</div>
+
+      <div class="user-avatar">
+        M
       </div>
-      <button class="follow" onclick="follow(this)">Подписаться</button>
+
+      <div class="person-info">
+
+        <div class="person-name">
+          Maria
+        </div>
+
+        <div class="person-username">
+          @maria
+        </div>
+
+      </div>
+
+      <button
+        class="follow"
+        onclick="follow(this)">
+        Подписаться
+      </button>
+
     </div>
 
+
     <div class="person">
-      <div class="user-avatar">S</div>
-      <div class="person-info">
-        <div class="person-name">Sofia</div>
-        <div class="person-username">@sofia</div>
+
+      <div class="user-avatar">
+        D
       </div>
-      <button class="follow" onclick="follow(this)">Подписаться</button>
+
+      <div class="person-info">
+
+        <div class="person-name">
+          David
+        </div>
+
+        <div class="person-username">
+          @david
+        </div>
+
+      </div>
+
+      <button
+        class="follow"
+        onclick="follow(this)">
+        Подписаться
+      </button>
+
+    </div>
+
+
+    <div class="person">
+
+      <div class="user-avatar">
+        S
+      </div>
+
+      <div class="person-info">
+
+        <div class="person-name">
+          Sofia
+        </div>
+
+        <div class="person-username">
+          @sofia
+        </div>
+
+      </div>
+
+      <button
+        class="follow"
+        onclick="follow(this)">
+        Подписаться
+      </button>
+
     </div>
 
   </div>
@@ -1051,83 +1534,412 @@ button{
 
 <!-- ================= REELS ================= -->
 
-<section id="reels" class="section hidden">
+<section
+  id="reels"
+  class="section hidden">
 
-  <div class="reels">
 
-    <div class="reel">
+  <div class="reels-screen">
 
-      <div class="reel-bg">
-        REEL 01
+
+    <!-- REEL 1 -->
+
+    <article class="reel">
+
+
+      <div class="reel-video">
+
+        <div class="video-placeholder">
+          🌃
+        </div>
+
       </div>
+
 
       <div class="reel-overlay"></div>
 
-      <div class="reel-bottom">
-        <div class="reel-user">@alex</div>
-        <div class="reel-caption">
-          Первый Reels в Social Network 🚀
-        </div>
-      </div>
+
+      <!-- RIGHT -->
 
       <div class="reel-actions">
-        <button class="reel-button">♡</button>
-        <button class="reel-button">💬</button>
-        <button class="reel-button">➤</button>
-        <button class="reel-button">•••</button>
+
+
+        <button
+          class="reel-button"
+          onclick="likeReel(this)">
+
+          <span>♡</span>
+
+          <small>
+            3 635
+          </small>
+
+        </button>
+
+
+        <button class="reel-button">
+
+          <span>◯</span>
+
+          <small>
+            43
+          </small>
+
+        </button>
+
+
+        <button class="reel-button">
+
+          <span>↪</span>
+
+          <small>
+            53
+          </small>
+
+        </button>
+
+
+        <button class="reel-button">
+
+          <span>➤</span>
+
+          <small>
+            531
+          </small>
+
+        </button>
+
+
+        <button class="reel-button">
+
+          <span>•••</span>
+
+        </button>
+
       </div>
 
-    </div>
+
+      <!-- USER -->
+
+      <div class="reel-bottom">
 
 
-    <div class="reel">
+        <div class="reel-user-line">
 
-      <div class="reel-bg">
-        REEL 02
+
+          <div class="reel-avatar">
+            🚗
+          </div>
+
+
+          <div class="reel-user-info">
+
+            <div class="reel-user">
+              red_tico
+            </div>
+
+            <div class="reel-category">
+              ИИ-контент
+            </div>
+
+          </div>
+
+
+          <button
+            class="follow-reel"
+            onclick="followReel(this)">
+
+            Подписаться
+
+          </button>
+
+        </div>
+
+
+        <div class="reel-caption">
+          В точку 📌
+        </div>
+
+
+        <div class="reel-music">
+          ♫ Original sound
+        </div>
+
+
       </div>
+
+
+      <div class="reel-preview">
+        🌃
+      </div>
+
+
+    </article>
+
+
+
+    <!-- REEL 2 -->
+
+    <article class="reel">
+
+
+      <div class="reel-video">
+
+        <div class="video-placeholder video-two">
+          🎥
+        </div>
+
+      </div>
+
 
       <div class="reel-overlay"></div>
 
-      <div class="reel-bottom">
-        <div class="reel-user">@maria</div>
-        <div class="reel-caption">
-          Что думаете об этом? ✨
-        </div>
-      </div>
 
       <div class="reel-actions">
-        <button class="reel-button">♡</button>
-        <button class="reel-button">💬</button>
-        <button class="reel-button">➤</button>
-        <button class="reel-button">•••</button>
+
+
+        <button
+          class="reel-button"
+          onclick="likeReel(this)">
+
+          <span>♡</span>
+
+          <small>
+            2 481
+          </small>
+
+        </button>
+
+
+        <button class="reel-button">
+
+          <span>◯</span>
+
+          <small>
+            81
+          </small>
+
+        </button>
+
+
+        <button class="reel-button">
+
+          <span>↪</span>
+
+          <small>
+            42
+          </small>
+
+        </button>
+
+
+        <button class="reel-button">
+
+          <span>➤</span>
+
+          <small>
+            302
+          </small>
+
+        </button>
+
+
+        <button class="reel-button">
+          •••
+        </button>
+
+
       </div>
 
-    </div>
+
+      <div class="reel-bottom">
 
 
-    <div class="reel">
+        <div class="reel-user-line">
 
-      <div class="reel-bg">
-        REEL 03
+
+          <div class="reel-avatar">
+            👤
+          </div>
+
+
+          <div class="reel-user-info">
+
+            <div class="reel-user">
+              maria
+            </div>
+
+            <div class="reel-category">
+              Creator
+            </div>
+
+          </div>
+
+
+          <button
+            class="follow-reel"
+            onclick="followReel(this)">
+
+            Подписаться
+
+          </button>
+
+
+        </div>
+
+
+        <div class="reel-caption">
+          Новый день — новые идеи ✨
+        </div>
+
+
+        <div class="reel-music">
+          ♫ Trending sound
+        </div>
+
+
       </div>
+
+
+      <div class="reel-preview">
+        🎥
+      </div>
+
+
+    </article>
+
+
+
+    <!-- REEL 3 -->
+
+    <article class="reel">
+
+
+      <div class="reel-video">
+
+        <div class="video-placeholder video-three">
+          🌌
+        </div>
+
+      </div>
+
 
       <div class="reel-overlay"></div>
 
-      <div class="reel-bottom">
-        <div class="reel-user">@david</div>
-        <div class="reel-caption">
-          Новый ролик уже здесь 🎬
-        </div>
-      </div>
 
       <div class="reel-actions">
-        <button class="reel-button">♡</button>
-        <button class="reel-button">💬</button>
-        <button class="reel-button">➤</button>
-        <button class="reel-button">•••</button>
+
+
+        <button
+          class="reel-button"
+          onclick="likeReel(this)">
+
+          <span>♡</span>
+
+          <small>
+            956
+          </small>
+
+        </button>
+
+
+        <button class="reel-button">
+
+          <span>◯</span>
+
+          <small>
+            52
+          </small>
+
+        </button>
+
+
+        <button class="reel-button">
+
+          <span>↪</span>
+
+          <small>
+            31
+          </small>
+
+        </button>
+
+
+        <button class="reel-button">
+
+          <span>➤</span>
+
+          <small>
+            190
+          </small>
+
+        </button>
+
+
+        <button class="reel-button">
+          •••
+        </button>
+
+
       </div>
 
-    </div>
+
+      <div class="reel-bottom">
+
+
+        <div class="reel-user-line">
+
+
+          <div class="reel-avatar">
+            🔥
+          </div>
+
+
+          <div class="reel-user-info">
+
+            <div class="reel-user">
+              david
+            </div>
+
+            <div class="reel-category">
+              Social Network
+            </div>
+
+          </div>
+
+
+          <button
+            class="follow-reel"
+            onclick="followReel(this)">
+
+            Подписаться
+
+          </button>
+
+
+        </div>
+
+
+        <div class="reel-caption">
+          Добро пожаловать 🔥
+        </div>
+
+
+        <div class="reel-music">
+          ♫ Original sound
+        </div>
+
+
+      </div>
+
+
+      <div class="reel-preview">
+        🌌
+      </div>
+
+
+    </article>
+
 
   </div>
 
@@ -1138,42 +1950,68 @@ button{
 
 <section id="chat" class="section hidden">
 
+
   <div class="chat">
+
 
     <div class="chat-top">
 
-      <div class="user-avatar">M</div>
+      <div class="user-avatar">
+        M
+      </div>
 
       <div>
-        <div class="chat-user">Maria</div>
-        <div class="online">● в сети</div>
+
+        <div class="chat-user">
+          Maria
+        </div>
+
+        <div class="online">
+          ● в сети
+        </div>
+
       </div>
 
     </div>
 
-    <div class="messages" id="messages">
+
+    <div
+      class="messages"
+      id="messages">
+
 
       <div class="message">
+
         <div class="bubble">
           Привет! 👋
         </div>
+
       </div>
 
+
       <div class="message">
+
         <div class="bubble">
           Добро пожаловать!
         </div>
+
       </div>
 
+
       <div class="message me">
+
         <div class="bubble">
           Спасибо 😎
         </div>
+
       </div>
+
 
     </div>
 
+
     <div class="chat-input">
+
 
       <input
         id="messageInput"
@@ -1181,9 +2019,14 @@ button{
         onkeydown="if(event.key==='Enter')sendMessage()"
       >
 
-      <button onclick="sendMessage()">➤</button>
+
+      <button onclick="sendMessage()">
+        ➤
+      </button>
+
 
     </div>
+
 
   </div>
 
@@ -1194,48 +2037,95 @@ button{
 
 <section id="profile" class="section hidden">
 
+
   <div class="profile">
+
 
     <div class="profile-card">
 
+
       <div class="profile-head">
 
-        <div class="profile-avatar">A</div>
 
-        <div>
-          <div class="profile-name">Alex</div>
-          <div class="profile-username">@alex</div>
+        <div class="profile-avatar">
+          A
         </div>
 
+
+        <div>
+
+          <div class="profile-name">
+            Alex
+          </div>
+
+          <div class="profile-username">
+            @alex
+          </div>
+
+        </div>
+
+
       </div>
+
 
       <div class="stats">
 
-        <div class="stat">
-          <strong>24</strong>
-          <span>Публикации</span>
-        </div>
 
         <div class="stat">
-          <strong>156</strong>
-          <span>Подписчики</span>
+
+          <strong>
+            24
+          </strong>
+
+          <span>
+            Публикации
+          </span>
+
         </div>
 
+
         <div class="stat">
-          <strong>89</strong>
-          <span>Подписки</span>
+
+          <strong>
+            156
+          </strong>
+
+          <span>
+            Подписчики
+          </span>
+
         </div>
+
+
+        <div class="stat">
+
+          <strong>
+            89
+          </strong>
+
+          <span>
+            Подписки
+          </span>
+
+        </div>
+
 
       </div>
+
 
       <div class="profile-bio">
-        Добро пожаловать на мою страницу ✨<br>
+
+        Добро пожаловать на мою страницу ✨
+        <br>
         Создаю что-то новое 🚀
+
       </div>
+
 
       <button class="profile-button">
         Редактировать профиль
       </button>
+
 
     </div>
 
@@ -1243,157 +2133,349 @@ button{
 
 </section>
 
+
 </main>
 
 
-<!-- ================= NAVIGATION ================= -->
+
+<!-- ================= BOTTOM NAV ================= -->
 
 <nav class="bottom-nav">
 
+
   <div class="nav-inner">
+
 
     <button
       class="nav-button active"
-      onclick="showSection('home',this)"
-    >
+      onclick="showSection('home',this)">
+
       🏠
-      <span>Главная</span>
+
+      <span>
+        Главная
+      </span>
+
     </button>
+
 
     <button
       class="nav-button"
-      onclick="showSection('search',this)"
-    >
+      onclick="showSection('reels',this)">
+
+      ▶️
+
+      <span>
+        Reels
+      </span>
+
+    </button>
+
+
+    <button
+      class="nav-button"
+      onclick="showSection('chat',this)">
+
+      ✈️
+
+      <span>
+        Чат
+      </span>
+
+    </button>
+
+
+    <button
+      class="nav-button"
+      onclick="showSection('search',this)">
+
       🔎
-      <span>Поиск</span>
+
+      <span>
+        Поиск
+      </span>
+
     </button>
+
 
     <button
       class="nav-button"
-      onclick="showSection('reels',this)"
-    >
-      🎬
-      <span>Reels</span>
-    </button>
+      onclick="showSection('profile',this)">
 
-    <button
-      class="nav-button"
-      onclick="showSection('chat',this)"
-    >
-      💬
-      <span>Чат</span>
-    </button>
-
-    <button
-      class="nav-button"
-      onclick="showSection('profile',this)"
-    >
       👤
-      <span>Профиль</span>
+
+      <span>
+        Профиль
+      </span>
+
     </button>
+
 
   </div>
 
 </nav>
 
 
+
 <script>
+
+
+/* ================= SECTION ================= */
 
 function showSection(id,button){
 
-  document.querySelectorAll(".section").forEach(section=>{
-    section.classList.add("hidden");
-  });
+  document
+    .querySelectorAll(".section")
+    .forEach(section=>{
+      section.classList.add("hidden");
+    });
+
 
   const section=document.getElementById(id);
 
+
   if(section){
+
     section.classList.remove("hidden");
+
   }
 
-  document.querySelectorAll(".nav-button").forEach(btn=>{
-    btn.classList.remove("active");
-  });
+
+  document
+    .querySelectorAll(".nav-button")
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
 
   if(button){
+
     button.classList.add("active");
+
+  }else{
+
+    const navButton=document.querySelector(
+      '.nav-button[onclick*="showSection(\''+id+'\'"]'
+    );
+
+    if(navButton){
+      navButton.classList.add("active");
+    }
+
   }
+
+
+  if(id==="reels"){
+
+    document.body.classList.add("reels-mode");
+
+  }else{
+
+    document.body.classList.remove("reels-mode");
+
+  }
+
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
+
 }
 
+
+/* ================= FOLLOW ================= */
 
 function follow(button){
 
   button.classList.toggle("active");
 
+
   if(button.classList.contains("active")){
+
     button.textContent="Вы подписаны";
+
   }else{
+
     button.textContent="Подписаться";
+
   }
+
 }
 
+
+function followReel(button){
+
+  button.classList.toggle("active");
+
+
+  if(button.classList.contains("active")){
+
+    button.textContent="Вы подписаны";
+
+  }else{
+
+    button.textContent="Подписаться";
+
+  }
+
+}
+
+
+/* ================= REEL LIKE ================= */
+
+function likeReel(button){
+
+  button.classList.toggle("liked");
+
+
+  const number=button.querySelector("small");
+
+
+  if(!number){
+    return;
+  }
+
+
+  let value=parseInt(
+    number.textContent
+      .replace(/\s/g,"")
+      .replace(/,/g,"")
+  );
+
+
+  if(button.classList.contains("liked")){
+
+    value++;
+
+  }else{
+
+    value--;
+
+  }
+
+
+  number.textContent=
+    value.toLocaleString("ru-RU");
+
+}
+
+
+/* ================= SEARCH ================= */
 
 function searchPeople(value){
 
-  const people=document.querySelectorAll(".person");
+  const people=
+    document.querySelectorAll(".person");
 
-  value=value.toLowerCase().trim();
+
+  value=
+    value
+      .toLowerCase()
+      .trim();
+
 
   people.forEach(person=>{
 
-    const text=person.innerText.toLowerCase();
+    const text=
+      person.innerText.toLowerCase();
+
 
     if(text.includes(value)){
+
       person.style.display="flex";
+
     }else{
+
       person.style.display="none";
+
     }
 
   });
+
 }
 
 
+/* ================= CHAT ================= */
+
 function sendMessage(){
 
-  const input=document.getElementById("messageInput");
-  const messages=document.getElementById("messages");
+  const input=
+    document.getElementById("messageInput");
 
-  const text=input.value.trim();
 
-  if(!text) return;
+  const messages=
+    document.getElementById("messages");
 
-  const message=document.createElement("div");
+
+  if(!input || !messages){
+    return;
+  }
+
+
+  const text=
+    input.value.trim();
+
+
+  if(!text){
+    return;
+  }
+
+
+  const message=
+    document.createElement("div");
+
 
   message.className="message me";
+
 
   message.innerHTML=
     '<div class="bubble">'+
     escapeHTML(text)+
     '</div>';
 
+
   messages.appendChild(message);
+
 
   input.value="";
 
-  messages.scrollTop=messages.scrollHeight;
+
+  messages.scrollTop=
+    messages.scrollHeight;
+
 }
 
+
+/* ================= SECURITY ================= */
 
 function escapeHTML(text){
 
-  const div=document.createElement("div");
+  const div=
+    document.createElement("div");
+
 
   div.textContent=text;
 
+
   return div.innerHTML;
+
 }
 
+
+/* ================= START ================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    showSection("home");
+
+  }
+);
+
 </script>
+
 
 </body>
 </html>
