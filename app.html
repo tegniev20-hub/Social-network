@@ -440,96 +440,119 @@ button{
 }
 
 .reel{
-  height:calc(100vh - 100px);
-  min-height:550px;
   position:relative;
-  overflow:hidden;
+  height:calc(100vh - 100px);
+  min-height:560px;
   scroll-snap-align:start;
+  overflow:hidden;
+  background:#000;
 }
 
 .reel-bg{
   position:absolute;
   inset:0;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:43px;
+  gap:12px;
+
+  font-size:70px;
   font-weight:900;
-  background:
-    linear-gradient(
-      145deg,
-      #111827,
-      #4f46e5,
-      #ec4899
-    );
+  color:#fff;
 }
 
-.reel:nth-child(2) .reel-bg{
-  background:
-    linear-gradient(
-      145deg,
-      #172554,
-      #7e22ce,
-      #be185d
-    );
+.reel-bg span{
+  font-size:28px;
+  letter-spacing:3px;
 }
 
-.reel:nth-child(3) .reel-bg{
+.reel-one{
   background:
-    linear-gradient(
-      145deg,
-      #082f49,
-      #0369a1,
-      #14b8a6
-    );
+    radial-gradient(circle at 20% 20%,#ec4899,transparent 30%),
+    linear-gradient(145deg,#111827,#4f46e5,#7c3aed);
 }
 
-.reel-overlay{
+.reel-two{
+  background:
+    radial-gradient(circle at 80% 20%,#06b6d4,transparent 30%),
+    linear-gradient(145deg,#172554,#7e22ce,#be185d);
+}
+
+.reel-three{
+  background:
+    radial-gradient(circle at 30% 20%,#22c55e,transparent 25%),
+    linear-gradient(145deg,#020617,#0369a1,#14b8a6);
+}
+
+.reel-gradient{
   position:absolute;
   inset:0;
-  background:linear-gradient(
-    transparent 45%,
-    rgba(0,0,0,.82)
-  );
+
+  background:
+    linear-gradient(
+      transparent 35%,
+      transparent 50%,
+      rgba(0,0,0,.9) 100%
+    );
 }
 
-.reel-bottom{
+.reel-info{
   position:absolute;
-  left:0;
-  right:75px;
-  bottom:0;
-  padding:90px 18px 28px;
+  left:18px;
+  right:85px;
+  bottom:25px;
+  z-index:2;
 }
 
-.reel-user{
+.reel-info b{
   font-size:18px;
-  font-weight:850;
 }
 
-.reel-caption{
-  margin-top:7px;
-  color:#eee;
+.reel-info p{
+  margin:7px 0;
   line-height:1.4;
+}
+
+.reel-info small{
+  color:#ddd;
 }
 
 .reel-actions{
   position:absolute;
-  right:12px;
-  bottom:28px;
+  right:13px;
+  bottom:25px;
+  z-index:3;
+
   display:flex;
   flex-direction:column;
-  gap:13px;
+  gap:14px;
 }
 
-.reel-button{
-  width:49px;
-  height:49px;
+.reel-actions button{
+  width:50px;
+  height:50px;
+
   border:1px solid rgba(255,255,255,.15);
   border-radius:50%;
+
   background:rgba(0,0,0,.45);
   color:#fff;
-  font-size:20px;
+
   backdrop-filter:blur(15px);
+
+  font-size:22px;
+}
+
+.reel-actions button small{
+  display:block;
+  margin-top:2px;
+  font-size:8px;
+}
+
+.reel-actions button.liked{
+  color:#ff4f91;
+  transform:scale(1.08);
 }
 
 /* ===== CHAT ===== */
